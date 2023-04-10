@@ -37,8 +37,14 @@
 
 .find-text{
     font-weight: 400;
-    font-size: 15px;
+    font-size: 0.78em;
     line-height: 20px;
+}
+.find-text2{
+    font-weight: 400;
+    font-size: 0.78em;
+    line-height: 20px;
+    margin: 0 5px 0 0;
 }
 .signup-text{
     font-weight: 800;

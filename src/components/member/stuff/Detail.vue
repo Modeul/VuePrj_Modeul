@@ -88,45 +88,46 @@ export default {
 						<img class="modal-img" />
 					</div>
 
-					<!-- image : slideshow -->
-				</div>
-				<!-- detail-heading : detail-main - item2 -->
-				<section class="canvas detail-heading">
-					<h1 class="d-none">heading</h1>
-					<div class="detail-category">{{ category.name }}</div>
-					<div>
-						<router-link :to="'./EditReg/' + stuff.id">수정</router-link>
-						<button type="submit">삭제</button>
-					</div>
-					<p class="detail-heading-title">{{ stuff.title }}</p>
-					<div class="d-fl">
-						<div class="detail-price">{{ stuff.price }}</div>
-						<div class="detail-status">모집중</div>
-						<div class="detail-heart">찜</div>
-						<div class="icon-heart">하트</div>
-					</div>
-				</section>
-				<!-- detail-info : detail-main - item3 -->
-				<section class="canvas detail-info">
-					<h1 class="d-none">info</h1>
-					<div>•인원</div>
-					<div>2 / {{ stuff.numPeople }}</div>
-					<div>•기한</div>
-					<div>{{ stuff.deadline }}</div>
-					<div>•장소</div>
-					<div>{{ stuff.place }}</div>
-				</section>
-				<!-- detail-writing : detail-main - item4 -->
-				<section class="canvas detail-writing">
-					<h1 class="d-none">writing</h1>
-					<!-- 원래 코드 -->
-					<!-- <p class="detail-paragraph">
-						{{ stuff.content }}
-					</p> -->
-					<p v-html="getContent(stuff.content)" class="detail-paragraph"></p>
-				</section>
-			</div>
-		</main>
+          <!-- image : slideshow -->
+        </div>
+        <!-- detail-heading : detail-main - item2 -->
+        <section class="canvas detail-heading">
+          <h1 class="d-none">heading</h1>
+          <div class="d-fl detail-edit" >
+            <div class="detail-category">{{ category.name }}</div>
+            <div class="d-fl">
+              <div class="ed-text"><router-link :to="'./EditReg/'+stuff.id">수정</router-link></div>
+              <div class="ed-text">삭제</div>
+            </div>
+          </div>
+          <p class="detail-heading-title">{{ stuff.title }}</p>
+          <div class="d-fl">
+            <div class="detail-price">{{ stuff.price }}</div>
+            <div class="detail-status">모집중</div>
+            <div class="detail-heart">찜</div>
+            <div class="icon-heart">하트</div>
+          </div>
+        </section>
+        <!-- detail-info : detail-main - item3 -->
+        <section class="canvas detail-info">
+          <h1 class="d-none">info</h1>
+          <div>•인원</div>
+          <div>2 / {{ stuff.numPeople }}</div>
+          <div>•기한</div>
+          <div>{{ stuff.deadline }}</div>
+          <div>•장소</div>
+          <div>{{ stuff.place }}</div>
+        </section>
+        <!-- detail-writing : detail-main - item4 -->
+        <section class="canvas detail-writing">
+          <h1 class="d-none">writing</h1>
+          <!-- <p class="detail-paragraph">
+            {{ stuff.content }}
+          </p> -->
+          <p v-html="getContent(stuff.content)" class="detail-paragraph"></p>
+        </section>
+      </div>
+    </main>
 
 		<!-- detail-join : detail - itme2  -->
 

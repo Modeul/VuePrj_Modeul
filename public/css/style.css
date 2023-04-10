@@ -120,6 +120,11 @@
 	width: 207px;
 	height: 45px;
 }
+.logo-size2 {
+	background-size: contain;
+	width: 150px;
+	height: 45px;
+}
 
 
 

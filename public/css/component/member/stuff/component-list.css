@@ -18,15 +18,18 @@
 }
 
 .li-gr {
-  /* grid-template-columns: repeat(6, minmax(60px, auto)); */
+  grid-template-columns: repeat(5, minmax(54px, auto));
   grid-template-rows: repeat(3, minmax(24px, auto));
   grid-row-gap: 1%;
-  grid-column-gap: 2%;
+  grid-column-gap: 0.6rem;
   align-items: center;
   grid-template-areas:
-    "pic ct ct . . ht"
+    /* "pic ct ct . . ht"
     "pic subj subj subj subj ht"
-    "pic mem dt dt dt ht";
+    "pic mem dt dt dt ht"; */
+    "pic ct ct . ."
+    "pic subj subj subj subj"
+    "pic mem dt dt dt";
 }
 
 .li-categ {
@@ -41,8 +44,8 @@
   background-position: center;
   background-size: cover; */
 
-  width: 54px;
-  height: 54px;
+  width:60px;
+  height: 60px;
 
   display: inline-block;
   overflow: hidden;
