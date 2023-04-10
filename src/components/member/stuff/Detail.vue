@@ -85,6 +85,10 @@ export default {
 				<section class="canvas detail-heading">
 					<h1 class="d-none">heading</h1>
 					<div class="detail-category">{{ category.name }}</div>
+					<div>
+						<router-link :to="'./EditReg/' + stuff.id">수정</router-link>
+						<button type="submit">삭제</button>
+					</div>
 					<p class="detail-heading-title">{{ stuff.title }}</p>
 					<div class="d-fl">
 						<div class="detail-price">{{ stuff.price }}</div>
@@ -129,23 +133,6 @@ export default {
 				참여하기
 			</button>
 		</section>
-
-		<!-- 모달버튼 -->
-		<div>
-			<div @click="openModal = true" class="btn-default">수정</div>
-			<div @click="openModal = true" class="btn-default">삭제</div>
-		</div>
-	</div>
-
-	<!-- 수정/삭제 모달 -->
-	<div class="black-bg" v-if="openModal == true">
-		<div class="white-bg">
-			<h1>모달 테스트</h1>
-			<p>수정</p>
-			<p>삭제</p>
-			<button class="close-button" @click.prevent="modalHandler">닫기</button>
-		</div>
-	</div>
 </template>
 
 <style scoped>
