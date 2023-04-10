@@ -58,13 +58,6 @@
     text-indent: -999px;
 }
 
-.uploaded-files{
-    width: 43px;
-    height: 40px;
-    position: absolute;
-    left: 300px;
-}
-
 .btn-edit{
     border: none;
     width: 20px;
