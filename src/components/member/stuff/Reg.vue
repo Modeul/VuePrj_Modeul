@@ -208,7 +208,7 @@
     
                     <div class="select-box select-content d-fl fl-dir-col">
                         <label for="content" class="input-field-txt2">내용</label>
-                        <textarea class="input-field input-content" name="content" id="content" cols="30" rows="10" v-model="stuff.content"></textarea>
+                        <textarea class="input-field input-content" name="content" id="content" cols="30" rows="10" wrap="hard" v-model="stuff.content"></textarea>
                     </div>
                 </form>
             </main>
@@ -224,6 +224,7 @@
                 isNext:false,
                 categoryList:[],
                 file:[],
+                url:'',
                 imageURL:'',
                 stuff:{
                     title: "아메리카노",
@@ -300,15 +301,15 @@
             uploadImage(e){
                 this.file = e.target.files;
                 console.log(this.file);
-                url = URL.createObjectURL(this.file[0]);
-                console.log(url);
-                this.imageURL = url;
+                this.url = URL.createObjectURL(this.file[0]);
+                console.log(this.url);
+                this.imageURL = this.url;
             },
         },
         mounted() {
             this.numPeoplePlusHandler();
             this.numPeopleMinusHandler();
-
+            // this.uploadImage();
             this.loadCategory();
 
 	    },
