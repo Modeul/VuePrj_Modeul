@@ -35,7 +35,7 @@
         <!-- 아이디찾기 ~ 플렉스 -->
             <div class="find-container">
                 <div>
-                    <a class="find-text" href="아이디찾기페이지">아이디 찾기</a> |
+                    <a class="find-text" href="아이디찾기페이지">아이디 찾기</a> <span class="find-text2">|</span>
                     <a class="find-text" href="비밀번호찾기페이지">비밀번호 찾기</a>
                 </div>
             
