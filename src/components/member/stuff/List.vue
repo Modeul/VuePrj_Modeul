@@ -9,6 +9,7 @@ export default {
 			page: '',
 			list: [],
 			categoryList: [],
+			listCount: 0
 		};
 	},
 	methods: {
@@ -18,7 +19,9 @@ export default {
 				.then(response => response.json())
 				.then(dataList => {
 					this.list = this.formatDateList(dataList.list);
+					this.listCount = dataList.listCount;
 					this.categoryList = dataList.categoryList;
+					console.log("리스트"+this.list);
 
 					console.log(this.list);
 					// console.log(this.categoryList);
@@ -130,7 +133,7 @@ export default {
 				</router-link>
 			</div>
 
-			<button class="btn-next more-list" @click="addListHandler">더보기</button>
+			<button class="btn-next more-list" @click="addListHandler">더보기<span>+{{listCount}}</span></button>
 			<router-link to="/member/stuff/reg">
 				<div class="reg-stuff">
 					+
