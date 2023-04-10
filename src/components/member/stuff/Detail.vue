@@ -133,6 +133,7 @@ export default {
 				참여하기
 			</button>
 		</section>
+  </div>
 </template>
 
 <style scoped>
