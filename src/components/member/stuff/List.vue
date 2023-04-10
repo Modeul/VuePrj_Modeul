@@ -1,4 +1,7 @@
 <script>
+import dayjs from 'dayjs';
+import 'dayjs/locale/ko'
+
 
 export default {
 	data() {
@@ -14,27 +17,33 @@ export default {
 			fetch(`http://localhost:8080/member/stuffs?p=${this.page}`)
 				.then(response => response.json())
 				.then(dataList => {
-					this.list = dataList.list;
+					this.list = this.formatDateList(dataList.list);
 					this.categoryList = dataList.categoryList;
-					
+
 					console.log(this.list);
-					console.log(this.categoryList);
+					// console.log(this.categoryList);
 				})
 				.catch(error => console.log('error', error));
 		},
-		// categoryLoad() {
-		// 	fetch("http://localhost:8080/member/stuffs/categories")
-		// 		.then(response => response.json())
-		// 		.then(categoryList => this.categoryList = categoryList)
-		// 		.catch(error => console.log('error', error));
-		// },
+		formatDateList(list) {
+			if(list.length == 0)
+				return;
+			let resultList = []
+			for (let item of list) {
+				if(item.deadline == null)
+					continue;
+				const deadlineObj = dayjs(item.deadline).locale('ko');
+				
+				item.deadline = deadlineObj.format("M월 D일 (dd) HH시까지");
+				resultList.push(item);
+			}
+			return resultList;
+		}
 	},
 	mounted() {
 		this.page = 0;
 		this.addListHandler();
 
-		console.log(this.list);
-		console.log(this.categoryList);
 	}
 }
 </script>
@@ -67,7 +76,7 @@ export default {
 						</div>
 						<div class="side-menu">
 							<div></div>
-							
+
 							<span class="sidebar-padding">
 								<router-link to="/member/stuff/list">홈</router-link>
 							</span>
@@ -104,8 +113,8 @@ export default {
 				<router-link :to="'./' + stuff.id">
 					<div class="d-gr li-gr m-t-13px list-cl">
 						<!-- 나중에 전체를 div로 묶어서 main으로 크게 묶기 -->
-						<div class="li-pic b-rad-1" >
-							<img class="listview-image" :src="'/images/member/stuff/'+stuff.imageName" alt="img" >
+						<div class="li-pic b-rad-1">
+							<img class="listview-image" :src="'/images/member/stuff/' + stuff.imageName" alt="img">
 						</div>
 						<div class="li-categ header-categ li-header-categ">{{ stuff.categoryName }}</div>
 						<div class="li-heart icon icon-heart">
