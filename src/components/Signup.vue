@@ -7,11 +7,13 @@
           <router-link to="/login" class="icon icon-back">Back</router-link>
         </div>
         <div class="d-fl-jf">
-          <h1 class="logo-main logo-moduel logo-size1 m-t-44px">mo_deul</h1>
+          <h1 class="logo-main logo-moduel logo-size2 m-t-44px">mo_deul</h1>
         </div>
-        <div>
+        <br>
+        <br>
+        <!-- <div>
           <h1 class="logo title-3 m-t-42px">회원 가입</h1>
-        </div>
+        </div> -->
       </section>
     </header>
     <!-- ----------------------------------------------------------- -->
@@ -39,17 +41,25 @@
                 placeholder="아이디를 입력해주세요."
                 v-model="member.uid"
               />
-              <div v-if="uidError.length" style="color: red">
-                {{ uidError }}
-              </div>
               <input
                 @click.prevent="checkUidDupl"
+                v-if="!uidDupl||uidDupl==''"
                 class="btn-post"
                 id="btn-post"
                 type="button"
                 value="중복확인"
               />
+              <input
+                v-if="uidDupl"
+                class="btn-post"
+                id="btn-post"
+                type="button"
+                value="확인완료"
+              />
             </label>
+          </div>
+          <div v-if="uidError.length" class="error-font">
+            {{ uidError }}
           </div>
           <!-- @keyup="isValidpwd" -->
           <div class="input-field-2 m-t-1">
@@ -63,12 +73,11 @@
                 placeholder="비밀번호를 입력해주세요."
                 v-model="member.pwd"
               />
-              <div v-if="pwdError.length" style="color: red">
-                {{ pwdError }}
-              </div>
             </label>
           </div>
-
+          <div v-if="pwdError.length" class="error-font">
+            {{ pwdError }}
+          </div>
           <div class="input-field-2 m-t-1">
             <label for="password-confirm" class="password-confirm-label">
               <span class="d-none">pw-confirm</span>
@@ -94,10 +103,10 @@
                 placeholder="이름을 입력해주세요."
                 v-model="member.name"
               />
-              <div v-if="nameError.length" style="color: red">
-                {{ nameError }}
-              </div>
             </label>
+          </div>
+          <div v-if="nameError.length" class="error-font">
+            {{ nameError }}
           </div>
 
           <div class="input-field-2 m-t-1">
@@ -111,17 +120,25 @@
                 placeholder="닉네임을 입력해주세요."
                 v-model="member.nickname"
               />
-              <div v-if="nicknameError.length" style="color: red">
-                {{ nicknameError }}
-              </div>
               <input
                 @click.prevent="checkNicknameDupl"
+                v-if="!nicknameDupl||nicknameDupl==''"
                 class="btn-post"
                 id="btn-post"
                 type="button"
                 value="중복확인"
               />
+              <input
+                v-if="nicknameDupl"
+                class="btn-post"
+                id="btn-post"
+                type="button"
+                value="확인완료"
+              />
             </label>
+          </div>
+          <div v-if="nicknameError.length" class="error-font">
+            {{ nicknameError }}
           </div>
 
           <div class="input-field-2 m-t-1">
@@ -135,9 +152,9 @@
                 placeholder="이메일을 입력해주세요."
                 v-model="member.email"
               />
-              <div v-if="emailError" style="color: red">{{ emailError }}</div>
               <input
                 @click.prevent="checkEmailDupl"
+                v-if="!emailDupl||emailDupl==''"
                 class="btn-post"
                 id="btn-post"
                 type="button"
@@ -145,12 +162,17 @@
               />
               <input
                 @click.prevent="checkEmail"
+                v-if="emailDupl"
                 class="btn-post"
                 id="btn-post"
                 type="button"
                 value="전송"
               />
             </label>
+            
+          </div>
+          <div v-if="emailError" class="error-font">
+            {{ emailError }}
           </div>
 
           <div class="input-field-2 m-t-1">
@@ -164,21 +186,29 @@
                 placeholder="이메일 인증번호를 입력해주세요."
                 v-model="emailconfirm"
               />
-              <div v-if="emailcodeError" style="color: red">
-                {{ emailcodeError }}
-              </div>
               <input
                 @click.prevent="checkEmailConfirm"
+                v-if="!emailDupl||emailDupl==''"
                 class="btn-auth"
                 id="btn-auth"
                 type="button"
                 value="확인"
               />
+              <input
+                v-if="emailDupl"
+                class="btn-post"
+                id="btn-post"
+                type="button"
+                value="확인완료"
+              />
             </label>
+          </div>
+          <div v-if="emailcodeError" class="error-font">
+            {{ emailcodeError }}
           </div>
 
           <div class="d-fl-jf m-t-69px">
-            <input class="btn-3" type="submit" value="가입하기" />
+            <input class="btn-4" type="submit" value="가입하기" />
           </div>
         </form>
       </div>
@@ -317,7 +347,6 @@ export default {
       // 모든 검증을 통과한 경우 유효한 비밀번호입니다.
       return true;
     },
-    validation() {},
     // 이메일 인증번호 발송
     async checkEmail() {
       var myHeaders = new Headers();

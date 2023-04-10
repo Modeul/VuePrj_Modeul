@@ -117,9 +117,9 @@ export default {
 							<img class="listview-image" :src="'/images/member/stuff/' + stuff.imageName" alt="img">
 						</div>
 						<div class="li-categ header-categ li-header-categ">{{ stuff.categoryName }}</div>
-						<div class="li-heart icon icon-heart">
+						<!-- <div class="li-heart icon icon-heart">
 							찬하트
-						</div>
+						</div> -->
 						<div class="li-subj">{{ stuff.title }}</div>
 						<div class="li-member"> 1 / {{ stuff.numPeople }}</div>
 						<div class="li-date">{{ stuff.deadline }}</div>

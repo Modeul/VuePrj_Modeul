@@ -87,3 +87,10 @@
   border: none;
   background: none;
 }
+/* 에러메시지 */
+.error-font{
+  margin-top: 1px;
+  text-align: center;
+  font-size: 7px;
+  color: brown;
+}
