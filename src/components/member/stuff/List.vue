@@ -32,9 +32,10 @@ export default {
 			for (let item of list) {
 				if(item.deadline == null)
 					continue;
+					const today = new dayjs().format('YYYY-MM-DD');
 				const deadlineObj = dayjs(item.deadline).locale('ko');
-				
-				item.deadline = deadlineObj.format("M월 D일 (dd) HH시까지");
+				const isToday = (deadlineObj.format('YYYY-MM-DD') == today)? '오늘, ' : ''
+				item.deadline = isToday + deadlineObj.format("M월 D일 (dd) HH시까지");
 				resultList.push(item);
 			}
 			return resultList;
@@ -117,9 +118,9 @@ export default {
 							<img class="listview-image" :src="'/images/member/stuff/' + stuff.imageName" alt="img">
 						</div>
 						<div class="li-categ header-categ li-header-categ">{{ stuff.categoryName }}</div>
-						<div class="li-heart icon icon-heart">
-							찬하트
-						</div>
+						<!-- <div class="li-heart icon icon-heart"> -->
+							<!-- 찬하트 -->
+						<!-- </div> -->
 						<div class="li-subj">{{ stuff.title }}</div>
 						<div class="li-member"> 1 / {{ stuff.numPeople }}</div>
 						<div class="li-date">{{ stuff.deadline }}</div>
