@@ -1,6 +1,6 @@
 <script>
 import dayjs from 'dayjs';
-import 'dayjs/locale/ko'
+import 'dayjs/locale/ko';
 
 export default {
 	data() {
@@ -9,6 +9,7 @@ export default {
 			stuff: {},
 			category: {},
 			image: {},
+			// content: ''
 		};
 	},
 	methods: {
@@ -25,7 +26,14 @@ export default {
 		formatDateStuff() {
 			const deadlineObj = dayjs(this.stuff.deadline).locale('ko');
 			this.stuff.deadline = deadlineObj.format("M월 D일 (dd) HH시까지");
+		},
+		/* 글 내용 br */
+		getContent(content){
+			return (content || "").split('\n').join('<br>');
 		}
+	},
+	computed:{
+
 	},
 	mounted() {
 		// fetch(`http://localhost:8080/member/stuffs/${this.$route.params.id}`)
@@ -45,6 +53,7 @@ export default {
 
 		// this.imageZoomInHandler();
 		// this.imageZoomOutHandler();
+		// this.content = this.stuff.content.replaceAll(/\n|\r\n)/g,'<br>');
 	},
 	updated() {
 		console.log(this.stuff);
@@ -110,9 +119,11 @@ export default {
 				<!-- detail-writing : detail-main - item4 -->
 				<section class="canvas detail-writing">
 					<h1 class="d-none">writing</h1>
-					<p class="detail-paragraph">
+					<!-- 원래 코드 -->
+					<!-- <p class="detail-paragraph">
 						{{ stuff.content }}
-					</p>
+					</p> -->
+					<p v-html="getContent(stuff.content)" class="detail-paragraph"></p>
 				</section>
 			</div>
 		</main>
