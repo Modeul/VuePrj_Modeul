@@ -81,13 +81,13 @@ export default {
         <!-- detail-heading : detail-main - item2 -->
         <section class="canvas detail-heading">
           <h1 class="d-none">heading</h1>
-          <div class="detail-category">{{ category.name }}</div>
-          <div>
-            
-                <!-- <router-link :to="{path: '/stuff/EditReg',params:{id:294}}">수정</router-link> -->
-                <router-link :to="'./EditReg/'+stuff.id">수정</router-link>
-                <button type="submit">삭제</button>
+          <div class="d-fl detail-edit" >
+            <div class="detail-category">{{ category.name }}</div>
+            <div class="d-fl">
+              <div class="ed-text"><router-link :to="'./EditReg/'+stuff.id">수정</router-link></div>
+              <div class="ed-text">삭제</div>
             </div>
+          </div>
           <p class="detail-heading-title">{{ stuff.title }}</p>
           <div class="d-fl">
             <div class="detail-price">{{ stuff.price }}</div>
