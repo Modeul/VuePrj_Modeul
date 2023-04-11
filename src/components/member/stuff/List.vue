@@ -42,7 +42,7 @@ export default {
 				resultList.push(item);
 			}
 			return resultList;
-		}
+		},
 	},
 	mounted() {
 		this.page = 0;
@@ -118,7 +118,12 @@ export default {
 					<div class="d-gr li-gr m-t-13px list-cl">
 						<!-- 나중에 전체를 div로 묶어서 main으로 크게 묶기 -->
 						<div class="li-pic b-rad-1">
-							<img class="listview-image" :src="'/images/member/stuff/' + stuff.imageName" alt="img">
+							<!-- <img v-if="stuff.imageName != null" class="listview-image" :src="'/images/member/stuff/' + stuff.imageName" alt="img"> -->
+							<img v-if="stuff.imageName != null" class="listview-image" :src="'/images/member/stuff/' + stuff.imageName" alt="img">
+							<!-- <img v-else-if="stuff.categoryId == 1" class="listview-image" src="/images/member/stuff/chick.jpg" alt="img"> -->
+							<!-- <img v-else-if="stuff.categoryId == 2" class="listview-image" src="/images/member/stuff/heart.png" alt="img"> -->
+							<!-- <img v-else-if="stuff.categoryId == 3" class="listview-image" src="/images/member/stuff/heart.png" alt="img"> -->
+							<img v-else class="listview-image" src="/images/member/stuff/member.png" alt="img">
 						</div>
 						<div class="li-categ header-categ li-header-categ">{{ stuff.categoryName }}</div>
 						<!-- <div class="li-heart icon icon-heart">
