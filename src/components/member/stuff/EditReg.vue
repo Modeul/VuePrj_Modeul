@@ -5,9 +5,12 @@ export default {
 			isNext: false,
 			categoryList: [],
 			file: [],
+			url: '',
 			imageURL: '',
 			stuffView: '',
-			stuff:''
+			stuff:'',
+			category:'',
+			image:''
 			// stuff:{
 			//     title: this.$route.params.title,
 			//     place: "이촌동",
@@ -83,9 +86,9 @@ export default {
 		uploadImage(e) {
 			this.file = e.target.files;
 			console.log(this.file);
-			url = URL.createObjectURL(this.file[0]);
-			console.log(url);
-			this.imageURL = url;
+			this.url = URL.createObjectURL(this.file[0]);
+			console.log(this.url);
+			this.imageURL = this.url;
 		},
 		load() {
 
@@ -94,7 +97,12 @@ export default {
 				.then(stuffView => {
 					this.stuffView = stuffView;
 					this.stuff = stuffView.stuff;
+					this.category = stuffView.category;
+					this.image = stuffView.image;
 					// console.log(this.stuffView.stuff)
+					console.log(this.stuffView);
+					console.log(this.stuff);
+					console.log(this.category);
 				})
 				.catch(error => console.log('error', error));
 		}
@@ -103,7 +111,7 @@ export default {
 		this.numPeoplePlusHandler();
 		this.numPeopleMinusHandler();
 
-		//this.loadCategory();
+		this.loadCategory();
 		this.load();
 		console.log(this.stuff);
 
@@ -154,9 +162,7 @@ export default {
 							<div class="btn-file">파일업로드</div>
 							<div class="btn-uploaded-files">
 								파일업로드된 파일들1
-								<div class="btn-uploaded-files" id="result_file">
-									<img class="uploaded-files" :src="imageURL" />
-								</div>
+								<img class="uploaded-files" :src="imageURL" />
 							</div>
 							<div class="btn-uploaded-files">파일업로드된 파일들2</div>
 						</label>
@@ -165,7 +171,7 @@ export default {
 					</div>
 
 					<!-- 카테고리 목록 선택 -->
-					<select class="category-box" name="categoryList">
+					<select class="category-box" name="categoryList" v-model="category.id">
 						<option v-for="c in categoryList" :value="c.id" class="" name="categoryId" v-text="c.name"></option>
 					</select>
 

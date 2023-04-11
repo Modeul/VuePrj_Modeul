@@ -79,13 +79,11 @@
 
                      <!-- 이미지 업로드  -->
                     <div class="file-box">
-                        <label for="file">
+                        <label for="file" class="file-box">
                             <div class="btn-file">파일업로드</div>
                             <div class="btn-uploaded-files">
                                 파일업로드된 파일들1
-                                <div class="btn-uploaded-files" id="result_file">
-                                    <img class="uploaded-files" :src="imageURL" />
-                                </div>
+                                <img class="uploaded-files" :src="imageURL" />
                             </div>
                             <div class="btn-uploaded-files">파일업로드된 파일들2</div>
                         </label>
