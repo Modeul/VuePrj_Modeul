@@ -271,28 +271,21 @@ export default {
       // email 체크
       if (!this.member.email) {
         this.emailError = "이메일 주소는 필수 입력사항입니다.";
-        console.log("%이메일 없어 Signup.vue : ");
       } else if (!this.emailDupl) {
         this.emailError = "중복 된 이메일 주소입니다.";
-        console.log("이메일 중복");
       } else if (!this.isValidEmail(this.member.email)) {
         this.emailError = "올바른 이메일 주소를 입력해주세요.";
-        console.log("이메일 정규식 안맞아 Signup.vue : ");
       }
       // pwd 체크
       if (!this.member.pwd) {
         this.pwdError = "비밀번호는 필수 입력사항입니다.";
-        console.log("비밀번호 없어 Signup.vue : ");
       } else if (this.member.pwd !== this.member.pwdConfirm) {
         this.pwdError = "비밀번호가 일치하지 않습니다.";
-        console.log("비밀번호 확인 틀림 Signup.vue : ");
       } else if (!this.isValidPwd(this.member.pwd)) {
         this.pwdError = "올바른 비밀번호를 입력해주세요.(8자 이상 영어+숫자)";
-        console.log("비밀번호 정규식 안맞아 Signup.vue : ");
       }
 
       // 전체 체크
-      console.log("%아무에러 없는지 검사 시작 Signup.vue : ");
       if (
         !this.emailError &&
         !this.pwdError &&
@@ -301,7 +294,6 @@ export default {
         this.nicknameDupl &&
         this.emailDupl
       ) {
-        console.log("%에러없어 Signup.vue line:221 ");
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
