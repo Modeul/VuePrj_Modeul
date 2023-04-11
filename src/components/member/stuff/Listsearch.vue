@@ -1,3 +1,53 @@
+<script>
+import dayjs from 'dayjs';
+import 'dayjs/locale/ko'
+
+
+export default {
+	data() {
+		return {
+			page: '',
+			list: [],
+			categoryList: [],
+		};
+	},
+	methods: {
+		addListHandler() {
+			this.page++;
+			fetch(`http://localhost:8080/member/stuffs?p=${this.page}`)
+				.then(response => response.json())
+				.then(dataList => {
+					this.list = this.formatDateList(dataList.list);
+					this.categoryList = dataList.categoryList;
+
+					console.log(this.list);
+					// console.log(this.categoryList);
+				})
+				.catch(error => console.log('error', error));
+		},
+		formatDateList(list) {
+			if(list.length == 0)
+				return;
+			let resultList = []
+			for (let item of list) {
+				if(item.deadline == null)
+					continue;
+				const deadlineObj = dayjs(item.deadline).locale('ko');
+				
+				item.deadline = deadlineObj.format("M월 D일 (dd) HH시까지");
+				resultList.push(item);
+			}
+			return resultList;
+		}
+	},
+	mounted() {
+		this.page = 0;
+		this.addListHandler();
+
+	}
+}
+</script>
+
 <template>
     <section class="canvas b-rad-2">
 
