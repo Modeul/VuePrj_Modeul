@@ -1,57 +1,41 @@
 <template>
   <!-- =================== reg1 ======================= -->
   <section class="reg1-form" :class="{ 'd-none': isNext }">
-    <h1 class="d-none">reg1</h1>
+      <h1 class="d-none">reg1</h1>
 
-    <section class="canvas-1 d-fl fl-dir-col">
+      <section class="canvas-1 d-fl fl-dir-col">
       <!-- =================== reg1 : header ===================== -->
-      <header class="d-fl">
-        <div>
-          <router-link to="/member/stuff/list" class="icon icon-back"
-            >뒤로가기</router-link
-          >
-        </div>
+          <header class="d-fl">
+              <div>
+                  <router-link to="/member/stuff/list" class="icon icon-back">뒤로가기</router-link>
+              </div>
 
-        <div class="hd-title-box">
-          <h1 class="hd-title">카테고리 설정</h1>
-        </div>
-      </header>
+              <div class="hd-title-box">
+                  <h1 class="hd-title">카테고리 설정</h1>
+              </div>
+          </header>
 
-      <!-- =================== reg1 : main ===================== -->
-      <main>
-        <div class="reg1-main-content">
-          <h1>지역 주민들과 어떤 물건을 같이 살까요?</h1>
-        </div>
+          <!-- =================== reg1 : main ===================== -->
+          <main>
+              <div class="reg1-main-content">
+                  <h1>지역 주민들과 어떤 물건을 같이 살까요?</h1>
+              </div>
 
-        <div class="category-select">
-          <ul class="select-box-list">
-            <li>
-              <button class="select-box categ-eff" name="merchandise">
-                일반상품
-              </button>
-            </li>
-            <li>
-              <button class="select-box categ-eff" name="supermarket">
-                대형마트 대량 물품
-              </button>
-            </li>
-            <li>
-              <button class="select-box categ-eff" name="delivery_food">
-                딜리버리 푸드
-              </button>
-            </li>
-          </ul>
-          <button class="btn-next m-t-button" @click.prevent="dnoneHandler">
-            다음
-          </button>
-        </div>
-      </main>
-    </section>
+              <div class="category-select">
+                  <ul class="select-box-list">
+                      <li v-for="category in categoryList" :key="index">
+                          <button @click.prevent="categorySelectHandler($event)" :id="category.id"  class="select-box categ-eff">{{ category.name }}</button>
+                      </li>
+                  </ul>
+                  <button class="btn-next m-t-button" @click.prevent="dnoneHandler"> 다음 </button>
+              </div>
+          </main>
+      </section>
   </section>
 
   <!-- =================== reg2 ======================= -->
   <section class="reg2-form" :class="{ 'd-none': isNext === false }">
-    <h1 class="d-none">reg2</h1>
+      <h1 class="d-none">reg2</h1>
 
         <section class="canvas-1 d-fl fl-dir-col">
 
@@ -65,7 +49,7 @@
                 </div>
                 
                 <div class="hd-title-box">
-                    <h1 class="hd-title">글 등록하기</h1>
+                    <h1 class="hd-title">글 올리기</h1>
                 </div>
             </header>
     
@@ -79,11 +63,13 @@
 
                      <!-- 이미지 업로드  -->
                     <div class="file-box">
-                        <label for="file" class="file-box">
+                        <label for="file">
                             <div class="btn-file">파일업로드</div>
                             <div class="btn-uploaded-files">
                                 파일업로드된 파일들1
-                                <img class="uploaded-files" :src="imageURL" />
+                                <div class="btn-uploaded-files" id="result_file">
+                                    <img class="uploaded-files" :src="imageURL" />
+                                </div>
                             </div>
                             <div class="btn-uploaded-files">파일업로드된 파일들2</div>
                         </label>
@@ -91,16 +77,23 @@
                         <input type="file" class="d-none" id="file" name="imgs" multiple accept="image/*" @change="uploadImage">
                     </div>
 
-                    <!-- 카테고리 목록 선택 -->
-                    <select class="category-box" name="categoryList">
-                        <option v-for="c in categoryList" :value="c.id" class="" name="categoryId" v-text="c.name"></option>
-                    </select>
+                   <!-- 카테고리 목록 선택 -->
+                  
+
+                  <select class="category-box" name="categoryList">
+                      <!-- <option class="d-none" value="null">{{ stuff.categoryId }}</option> -->
+                      
+                      <option v-for="c in categoryList" v-bind:selected="c.id == stuff.categoryId" name="categoryId" v-text="c.name"></option>
+
+                      <!-- <option v-for="c in categoryList" v-bind:selected="c.id === stuff.categoryId" name="categoryId" v-text="c.id"></option> -->
+                          <!-- <option v-for="c in categoryList" :value="c.id" class="" name="categoryId" v-text="c.name"></option> -->
+                  </select>
+
                     
                     <div class="select-box">
                         <label for="title" class="input-field-txt">제목</label>
                         <input type="text" class="input-field" id="title" name="title" v-model="stuff.title">
                     </div>
-                    
                     
                     <!-- 인원수 조절 -->
                     <div class="select-box2 d-fl">
@@ -130,10 +123,8 @@
                                 onChange={StartDateValueHandler}
                                 v-model="stuff.deadline"
                                 >
-                                <!-- value={startDateValue} -->
-                                <!--  -->
-                    </div>
 
+                    </div>
 
                     <div class="select-box">
                         <label for="price" class="input-field-txt">가격</label>
@@ -206,7 +197,7 @@
     
                     <div class="select-box select-content d-fl fl-dir-col">
                         <label for="content" class="input-field-txt2">내용</label>
-                        <textarea class="input-field input-content" name="content" id="content" cols="30" rows="10" wrap="hard" v-model="stuff.content"></textarea>
+                        <textarea class="input-field input-content" name="content" id="content" cols="30" rows="10" v-model="stuff.content"></textarea>
                     </div>
                 </form>
             </main>
@@ -222,7 +213,6 @@
                 isNext:false,
                 categoryList:[],
                 file:[],
-                url:'',
                 imageURL:'',
                 stuff:{
                     title: "아메리카노",
@@ -250,10 +240,14 @@
                 this.isNext = !this.isNext;
             },
 
+            categorySelectHandler(event){
+            this.stuff.categoryId = event.currentTarget.id;
+          },
+
             /* 인원 수 증감 이벤트 */
             numPeoplePlusHandler(stuff){
-		    if(this.stuff.numPeople>=1 && this.stuff.numPeople<16)
-		        this.stuff.numPeople++;
+            if(this.stuff.numPeople>=1 && this.stuff.numPeople<16)
+                this.stuff.numPeople++;
             },
             numPeopleMinusHandler(stuff){
                 if(this.stuff.numPeople>=2 && this.stuff.numPeople<=16)
@@ -267,11 +261,12 @@
                     redirect: 'follow'
                 };
                 
-                fetch("http://localhost:8080/member/stuffs/categories", requestOptions)
+                fetch("http://localhost:8080/member/stuff/categories", requestOptions)
                     .then(response => response.json())
                     .then(categoryList => {
-                    console.log(categoryList);
-                    this.categoryList = categoryList;
+                      console.log(categoryList);
+                      this.categoryList = categoryList;
+                      console.log(this.categoryList);
                     })
                     .catch(error => console.log('error', error));
             },
@@ -299,20 +294,22 @@
             uploadImage(e){
                 this.file = e.target.files;
                 console.log(this.file);
-                this.url = URL.createObjectURL(this.file[0]);
-                console.log(this.url);
-                this.imageURL = this.url;
+                url = URL.createObjectURL(this.file[0]);
+                console.log(url);
+                this.imageURL = url;
             },
         },
         mounted() {
             this.numPeoplePlusHandler();
             this.numPeopleMinusHandler();
-            // this.uploadImage();
+
             this.loadCategory();
 
-	    },
+        },
         updated(){
-            //console.log(this.categoryList.id);
+
+            console.log(this.categoryId);
+              
         }
         
     }
@@ -320,4 +317,10 @@
 
 <style scoped>
 @import "/css/component/member/stuff/component-reg.css";
+
+select {
+  -webkit-appearance:none; /* 크롬 화살표 없애기 */
+  -moz-appearance:none; /* 파이어폭스 화살표 없애기 */
+  appearance:none /* 화살표 없애기 */
+}
 </style>
