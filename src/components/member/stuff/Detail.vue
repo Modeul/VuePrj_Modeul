@@ -79,7 +79,8 @@ export default {
 				<!-- detail-img : detail-main - item1 -->
 				<div class="detail-img">
 					<!-- <img src="../../../../images/member/stuff/chick.jpg" alt="img"> -->
-					<img :src="'/images/member/stuff/' + image.name" alt="img" />
+					<img v-if="image != null" :src="'/images/member/stuff/' + image.name" alt="img" />
+					<div v-else class="noImg" style="height:100px;"></div>
 
 					<!-- image : modal -->
 					<div class="detail-modal">

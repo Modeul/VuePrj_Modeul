@@ -264,9 +264,7 @@
                 fetch("http://localhost:8080/member/stuff/categories", requestOptions)
                     .then(response => response.json())
                     .then(categoryList => {
-                      console.log(categoryList);
-                      this.categoryList = categoryList;
-                      console.log(this.categoryList);
+                    this.categoryList = categoryList;
                     })
                     .catch(error => console.log('error', error));
             },
