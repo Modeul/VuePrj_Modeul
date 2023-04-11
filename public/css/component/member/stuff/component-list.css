@@ -66,6 +66,9 @@
 .li-subj {
   grid-area: subj;
   font-size: 0.8125rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .li-member {
