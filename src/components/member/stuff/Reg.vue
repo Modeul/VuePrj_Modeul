@@ -24,7 +24,7 @@
               <div class="category-select">
                   <ul class="select-box-list">
                       <li v-for="category in categoryList" :key="index">
-                          <button @click.prevent="categorySelectHandler(category.id)" :id="category.id"  class="select-box" :class="{'categ-eff': categorySelected === category.id }">{{ category.name }}</button>
+                        <button @click.prevent="categorySelectHandler(category.id)" :id="category.id"  class="select-box" :class="{'categ-eff': categorySelected === category.id }">{{ category.name }}</button>
                       </li>
                   </ul>
                   <button class="btn-next m-t-button" @click.prevent="dnoneHandler"> 다음 </button>
