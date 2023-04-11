@@ -35,10 +35,29 @@ export default {
 			for (let item of list) {
 				if(item.deadline == null)
 					continue;
-					const today = new dayjs().format('YYYY-MM-DD');
+				const today = new dayjs().format('YYYY-MM-DD');
+
 				const deadlineObj = dayjs(item.deadline).locale('ko');
 				const isToday = (deadlineObj.format('YYYY-MM-DD') == today)? '오늘, ' : ''
 				item.deadline = isToday + deadlineObj.format("M월 D일 (dd) HH시까지");
+				
+				item.dDay = dayjs().diff(deadlineObj, 'day');
+				if (parseInt(item.dDay) < 0)
+					item.dDay = 'D' + item.dDay;
+				else if(parseInt(item.dDay) == 0)
+				{
+					item.dDay = deadlineObj.diff(dayjs(), 'hours')
+					if(parseInt(item.dDay) > 0)
+						item.dDay = '마감 ' + deadlineObj.diff(dayjs(), 'hours') + '시간 전'
+					else if(parseInt(item.dDay) == 0)
+						item.dDay = '1시간 내 마감';
+				}
+				else
+				item.dDay = '마감';
+
+				// deadlineObj.diff(today, 'day');
+				
+				// 
 				resultList.push(item);
 			}
 			return resultList;
@@ -122,16 +141,20 @@ export default {
 							<img v-if="stuff.imageName != null" class="listview-image" :src="'/images/member/stuff/' + stuff.imageName" alt="img">
 							<!-- <img v-else-if="stuff.categoryId == 1" class="listview-image" src="/images/member/stuff/chick.jpg" alt="img"> -->
 							<!-- <img v-else-if="stuff.categoryId == 2" class="listview-image" src="/images/member/stuff/heart.png" alt="img"> -->
-							<!-- <img v-else-if="stuff.categoryId == 3" class="listview-image" src="/images/member/stuff/heart.png" alt="img"> -->
+							<img v-else-if="stuff.categoryId == 3" class="listview-image" src="/images/member/stuff/costco.jpg" alt="img">
 							<img v-else class="listview-image" src="/images/member/stuff/member.png" alt="img">
 						</div>
 						<div class="li-categ header-categ li-header-categ">{{ stuff.categoryName }}</div>
+						<div class="li-dday">{{stuff.dDay }}</div>
 						<!-- <div class="li-heart icon icon-heart">
 							찬하트
 						</div> -->
 						<div class="li-subj">{{ stuff.title }}</div>
 						<div class="li-member"> 1 / {{ stuff.numPeople }}</div>
-						<div class="li-date">{{ stuff.deadline }}</div>
+						<div class="li-place">{{ stuff.place }}</div>
+						<!-- <div class="li-date">{{ stuff.deadline }} | {{'D' + stuff.dDay }}</div> -->
+						
+						<!-- <div class="li-date">{{'D' + stuff.dDay }}</div> -->
 					</div>
 					<div>
 						<h1 class="icon icon-line">선 긋기</h1>

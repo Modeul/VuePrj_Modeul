@@ -24,20 +24,28 @@
   grid-column-gap: 0.6rem;
   align-items: center;
   grid-template-areas:
-    /* "pic ct ct . . ht"
-    "pic subj subj subj subj ht"
-    "pic mem dt dt dt ht"; */
-    "pic ct ct . ."
+    "pic ct ct . dday"
     "pic subj subj subj subj"
-    "pic mem dt dt dt";
+    "pic mem pl pl pl";
 }
 
 .li-categ {
   grid-area: ct;
 }
 
+.li-dday {
+	background-color: #b8ccff82;
+	text-align: center;
+	border-radius: 5px;
+  grid-area: dday;
+  font-size: 0.6rem;
+	width: 65px;
+	height: 15px;
+	line-height: 15px;
+}
+
+
 .li-pic {
-  grid-area: pic;
   grid-area: pic;
   /* background-image: url(../../../../images/member/stuff/chick.jpg);
   background-repeat: no-repeat;
@@ -73,13 +81,20 @@
 
 .li-member {
   grid-area: mem;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
+	color:#7f7f7f;
 }
 
-.li-date {
+.li-place {
+  grid-area: pl;
+  font-size: 0.7rem;
+	color:#7f7f7f;
+}
+
+/* .li-date {
   grid-area: dt;
   font-size: 0.75rem;
-}
+} */
 
 .li-heart {
   justify-self: center;
