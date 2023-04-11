@@ -44,11 +44,12 @@
               <input
                 @click.prevent="checkUidDupl"
                 v-if="!uidDupl||uidDupl==''"
-                class="btn-post"
+                class="btn-check"
                 id="btn-post"
                 type="button"
-                value="중복확인"
+                value=""
               />
+              <div class="btn-check"></div>
               <input
                 v-if="uidDupl"
                 class="btn-post"
@@ -482,4 +483,5 @@ export default {
 <style scoped>
 @import url(/css/component/component.css);
 @import url(/css/component/component-sign-up.css);
+@import url(/css/button.css);
 </style>
