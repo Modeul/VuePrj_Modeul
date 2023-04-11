@@ -24,7 +24,7 @@
               <div class="category-select">
                   <ul class="select-box-list">
                       <li v-for="category in categoryList" :key="index">
-                          <button @click.prevent="categorySelectHandler($event)" :id="category.id"  class="select-box categ-eff">{{ category.name }}</button>
+                          <button @click.prevent="categorySelectHandler(category.id)" :id="category.id"  class="select-box" :class="{'categ-eff': categorySelected === category.id }">{{ category.name }}</button>
                       </li>
                   </ul>
                   <button class="btn-next m-t-button" @click.prevent="dnoneHandler"> 다음 </button>
@@ -210,6 +210,7 @@
     export default {
         data() {
             return {
+                categorySelected: null,
                 isNext:false,
                 categoryList:[],
                 file:[],
@@ -240,8 +241,9 @@
                 this.isNext = !this.isNext;
             },
 
-            categorySelectHandler(event){
-            this.stuff.categoryId = event.currentTarget.id;
+            categorySelectHandler(categoryId){
+              this.categorySelected = categoryId
+              this.stuff.categoryId = event.currentTarget.id;
           },
 
             /* 인원 수 증감 이벤트 */
