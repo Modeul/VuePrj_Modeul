@@ -215,19 +215,19 @@
                 file:[],
                 imageURL:'',
                 stuff:{
-                    title: "아메리카노",
-                    place: "이촌동",
-                    numPeople: "2",
-                    categoryId: 3,
-                    deadline: "",
-                    price: "2000",
-                    url: "www.naver.com",
-                    content: "5000",
+                    title: '',
+                    place: '',
+                    numPeople: '2',
+                    categoryId: '',
+                    deadline: '',
+                    price: '',
+                    url: '',
+                    content: '',
                     imageList: [
                         {
-                            "id": 3,
-                            "name": "24324324",
-                            "stuffId": 3
+                            "id": '',
+                            "name": '',
+                            "stuffId": ''
                         }
                     ]
                 },
