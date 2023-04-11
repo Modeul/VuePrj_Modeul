@@ -9,7 +9,8 @@ export default {
 			imageURL: '',
 			stuffView: '',
 			stuff:'',
-			category:''
+			category:'',
+			image:''
 			// stuff:{
 			//     title: this.$route.params.title,
 			//     place: "이촌동",
@@ -97,7 +98,10 @@ export default {
 					this.stuffView = stuffView;
 					this.stuff = stuffView.stuff;
 					this.category = stuffView.category;
+					this.image = stuffView.image;
 					// console.log(this.stuffView.stuff)
+					console.log(this.stuffView);
+					console.log(this.stuff);
 					console.log(this.category);
 				})
 				.catch(error => console.log('error', error));
