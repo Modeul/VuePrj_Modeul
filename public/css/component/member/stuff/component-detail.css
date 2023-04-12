@@ -47,13 +47,29 @@ main {
 }
 .detail-category {
     font-size: 0.3em;
-    color: #fff;
-    background-color: #F2B8B8;
     padding: 3px 8px;
     box-sizing: border-box;
     border-radius: 5px;
     margin-right: 5px;
 }
+.detail-category[value="1"]
+{
+	background-color: #F5CD81;
+	color: #FFFFFF;
+}
+
+.detail-category[value="2"]
+{
+	background-color: #08B8B8;
+	color: #FFFFFF;
+}
+
+.detail-category[value="3"]
+{
+	background-color: #F2B8B8;
+	color: #FFFFFF;
+}
+
 .detail-heading-title {
   font-size: 1em;
   margin-top: 10px;

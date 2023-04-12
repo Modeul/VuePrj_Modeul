@@ -104,7 +104,7 @@ export default {
           <h1 class="d-none">heading</h1>
           <div class="d-fl detail-edit" >
             <div class="detail-top">
-                <div class="detail-category">{{ category.name }}</div>
+                <div class="detail-category" :value="stuff.categoryId">{{ category.name }}</div>
                 <div class="detail-status">모집중</div>
             </div>
             
