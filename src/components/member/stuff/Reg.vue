@@ -80,13 +80,11 @@
                    <!-- 카테고리 목록 선택 -->
                   
 
-                  <select class="category-box" name="categoryList">
+                  <select class="category-box" name="categoryId">
                       <!-- <option class="d-none" value="null">{{ stuff.categoryId }}</option> -->
                       
-                      <option v-for="c in categoryList" v-bind:selected="c.id == stuff.categoryId" name="categoryId" v-text="c.name"></option>
-
-                      <!-- <option v-for="c in categoryList" v-bind:selected="c.id === stuff.categoryId" name="categoryId" v-text="c.id"></option> -->
-                          <!-- <option v-for="c in categoryList" :value="c.id" class="" name="categoryId" v-text="c.name"></option> -->
+                      <option v-for="c in categoryList" v-bind:selected="c.id == stuff.categoryId" :value=c.id v-text="c.name"></option>
+                     
                   </select>
 
                     
@@ -274,6 +272,11 @@
                 console.log(this.stuff);
 
                 var formData = new FormData(this.$refs.form);
+                
+                // for (let key of formData.keys()) {
+	            // console.log(key);
+                // }
+
 
                 var requestOptions = {
                     method: 'POST',
