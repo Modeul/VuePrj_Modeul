@@ -51,6 +51,8 @@ export default {
 						item.dDay = '마감 ' + deadlineObj.diff(dayjs(), 'hours') + '시간 전'
 					else if(parseInt(item.dDay) == 0)
 						item.dDay = '1시간 내 마감';
+					else
+						item.dDay = '마감';
 				}
 				else
 				item.dDay = '마감';

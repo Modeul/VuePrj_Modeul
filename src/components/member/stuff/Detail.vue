@@ -30,6 +30,18 @@ export default {
 		/* 글 내용 br */
 		getContent(content){
 			return (content || "").split('\n').join('<br>');
+		},
+		deleteStuff(){
+			var requestOptions = {
+ 			 method: 'DELETE',
+  			redirect: 'follow'
+		};
+		this.$router.push("/member/stuff/list");
+
+		fetch(`http://localhost:8080/member/stuffs/${this.$route.params.id}`, requestOptions)
+  			.then(response => response.text())
+  			.then(result => console.log(result))
+  			.catch(error => console.log('error', error));
 		}
 	},
 	computed:{
@@ -98,7 +110,7 @@ export default {
             <div class="detail-category">{{ category.name }}</div>
             <div class="d-fl">
               <div class="ed-text"><router-link :to="'./EditReg/'+stuff.id">수정</router-link></div>
-              <div class="ed-text">삭제</div>
+              <div class="ed-text" @click="deleteStuff">삭제</div>
             </div>
           </div>
           <p class="detail-heading-title">{{ stuff.title }}</p>
