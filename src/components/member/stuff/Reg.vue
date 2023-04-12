@@ -67,9 +67,7 @@
                             <div class="btn-file">파일업로드</div>
                             <div class="btn-uploaded-files">
                                 파일업로드된 파일들1
-                                <div class="btn-uploaded-files" id="result_file">
-                                    <img class="uploaded-files" :src="imageURL" />
-                                </div>
+                                <img class="uploaded-files" :src="imageURL" />
                             </div>
                             <div class="btn-uploaded-files">파일업로드된 파일들2</div>
                         </label>
@@ -77,16 +75,22 @@
                         <input type="file" class="d-none" id="file" name="imgs" multiple accept="image/*" @change="uploadImage">
                     </div>
 
+
+                    <!-- 에러메시지 모달창 -->
+                    <div v-if="openModal == true" class="black-bg">
+                        <div class="error-box">{{ valiError }}
+                        <div @click="toggleModal" class="error-close"></div>
+                        </div>
+                    </div>
+
                    <!-- 카테고리 목록 선택 -->
                   
 
-                  <select class="category-box" name="categoryList">
+                  <select class="category-box" name="categoryId">
                       <!-- <option class="d-none" value="null">{{ stuff.categoryId }}</option> -->
                       
-                      <option v-for="c in categoryList" v-bind:selected="c.id == stuff.categoryId" name="categoryId" v-text="c.name"></option>
-
-                      <!-- <option v-for="c in categoryList" v-bind:selected="c.id === stuff.categoryId" name="categoryId" v-text="c.id"></option> -->
-                          <!-- <option v-for="c in categoryList" :value="c.id" class="" name="categoryId" v-text="c.name"></option> -->
+                      <option v-for="c in categoryList" v-bind:selected="c.id == stuff.categoryId" :value=c.id v-text="c.name"></option>
+                     
                   </select>
 
                     
@@ -216,22 +220,25 @@
                 file:[],
                 imageURL:'',
                 stuff:{
-                    title: "아메리카노",
-                    place: "이촌동",
-                    numPeople: "2",
-                    categoryId: 3,
-                    deadline: "",
-                    price: "2000",
-                    url: "www.naver.com",
-                    content: "5000",
+                    title: '',
+                    place: '',
+                    numPeople: '2',
+                    categoryId: 0,
+                    deadline: '',
+                    price: '',
+                    url: '',
+                    content: '',
                     imageList: [
                         {
-                            "id": 3,
-                            "name": "24324324",
-                            "stuffId": 3
+                            "id": '',
+                            "name": '',
+                            "stuffId": ''
                         }
                     ]
                 },
+                // 에러 메시지
+                valiError: "",
+                openModal: false,
 
             }
         },
@@ -266,9 +273,7 @@
                 fetch("http://localhost:8080/member/stuff/categories", requestOptions)
                     .then(response => response.json())
                     .then(categoryList => {
-                      console.log(categoryList);
-                      this.categoryList = categoryList;
-                      console.log(this.categoryList);
+                    this.categoryList = categoryList;
                     })
                     .catch(error => console.log('error', error));
             },
@@ -276,8 +281,46 @@
             // 파일 업로드시, 이벤트 처리
             upload(){
                 console.log(this.stuff);
+                this.valiError = "";
 
+                // 제목 체크 (글자 수)
+                if (!this.stuff.title) {
+                this.valiError = "제목을 입력하세요.";
+                this.openModal = true;
+                } else if (!this.isValidTitle(this.stuff.title)) {
+                this.valiError = "제목을 20자 이하로 입력해주세요.";
+                this.openModal = true;
+                }
+
+                // 가격 체크
+                if (!this.stuff.price) {
+                this.valiError = "가격을 입력하세요.";
+                this.openModal = true;
+                } else if (!this.isValidPrice(this.stuff.price.length)) {
+                this.openModal = true;
+                }
+                // 장소, 카테고리, 날짜, 내용 체크
+                if (!this.stuff.place) {
+                this.valiError = "장소를 입력하세요.";
+                this.openModal = true;
+                } else if (!this.stuff.categoryId) {
+                this.valiError = "카테고리를 선택하세요.";
+                this.openModal = true;
+                } else if (!this.stuff.deadline) {
+                this.valiError = "날짜를 입력하세요.";
+                this.openModal = true;
+                } else if (!this.stuff.content) {
+                this.valiError = "내용을 입력하세요.";
+                this.openModal = true;
+                }
+
+                if (!this.valiError) {
                 var formData = new FormData(this.$refs.form);
+                
+                // for (let key of formData.keys()) {
+	            // console.log(key);
+                // }
+
 
                 var requestOptions = {
                     method: 'POST',
@@ -290,15 +333,43 @@
                 .then(result => console.log(result))
                 .catch(error => console.log('error', error));
 
+                this.$router.push('/member/stuff/list');
+            }
             },
 
             // 썸네일 조작
             uploadImage(e){
                 this.file = e.target.files;
                 console.log(this.file);
-                url = URL.createObjectURL(this.file[0]);
-                console.log(url);
-                this.imageURL = url;
+                this.url = URL.createObjectURL(this.file[0]);
+                console.log(this.url);
+                this.imageURL = this.url;
+            },
+            // 제목 체크
+            isValidTitle() {
+            if (this.stuff.title.length > 20) {
+                return false;
+            }
+            return true;
+            },
+            // 가격 체크
+            isValidPrice() {
+            // 가격제한
+            if (this.stuff.price.length > 8) {
+                this.valiError = "너무 비싸요.";
+                return false;
+            }
+            // 가격은 숫자만 입력 가능
+            const priceRegex = /^[0-9]+$/.test(this.stuff.price);
+            if (!priceRegex) {
+                this.valiError = "가격은 숫자만 입력 가능합니다.";
+                return false;
+            }
+            // 모든 검증을 통과한 경우
+            return true;
+            },
+            toggleModal() {
+            this.openModal = !this.openModal;
             },
         },
         mounted() {

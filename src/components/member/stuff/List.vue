@@ -21,7 +21,7 @@ export default {
 					this.list = this.formatDateList(dataList.list);
 					this.listCount = dataList.listCount;
 					this.categoryList = dataList.categoryList;
-					console.log("리스트"+this.list);
+					console.log("리스트" + this.list);
 
 					console.log(this.list);
 					// console.log(this.categoryList);
@@ -29,20 +29,40 @@ export default {
 				.catch(error => console.log('error', error));
 		},
 		formatDateList(list) {
-			if(list.length == 0)
+			if (list.length == 0)
 				return;
 			let resultList = []
 			for (let item of list) {
-				if(item.deadline == null)
+				if (item.deadline == null)
 					continue;
-					const today = new dayjs().format('YYYY-MM-DD');
+				const today = new dayjs().format('YYYY-MM-DD');
+
 				const deadlineObj = dayjs(item.deadline).locale('ko');
-				const isToday = (deadlineObj.format('YYYY-MM-DD') == today)? '오늘, ' : ''
+				const isToday = (deadlineObj.format('YYYY-MM-DD') == today) ? '오늘, ' : ''
 				item.deadline = isToday + deadlineObj.format("M월 D일 (dd) HH시까지");
+
+				item.dDay = dayjs().diff(deadlineObj, 'day');
+				if (parseInt(item.dDay) < 0)
+					item.dDay = 'D' + item.dDay;
+				else if (parseInt(item.dDay) == 0) {
+					item.dDay = deadlineObj.diff(dayjs(), 'hours')
+					if (parseInt(item.dDay) > 0)
+						item.dDay = '마감 ' + deadlineObj.diff(dayjs(), 'hours') + '시간 전'
+					else if (parseInt(item.dDay) == 0)
+						item.dDay = '1시간 내 마감';
+					else
+						item.dDay = '마감';
+				}
+				else
+					item.dDay = '마감';
+
+				// deadlineObj.diff(today, 'day');
+
+				// 
 				resultList.push(item);
 			}
 			return resultList;
-		}
+		},
 	},
 	mounted() {
 		this.page = 0;
@@ -64,7 +84,7 @@ export default {
 				<option value="/member/stuff/gps">GPS설정</option>
 			</select>
 
-			<div>
+		<div>
 				<!-- <a class="icon icon-menu">메뉴</a> -->
 				<a class="icon icon-alarm">알림</a>
 				<a class="icon">
@@ -115,26 +135,44 @@ export default {
 		<main>
 			<div class="stuff-list" v-for="stuff in list">
 				<router-link :to="'./' + stuff.id">
-					<div class="d-gr li-gr m-t-13px list-cl">
-						<!-- 나중에 전체를 div로 묶어서 main으로 크게 묶기 -->
-						<div class="li-pic b-rad-1">
-							<img class="listview-image" :src="'/images/member/stuff/' + stuff.imageName" alt="img">
+						<div class="d-gr li-gr m-t-13px list-cl">
+							<!-- 나중에 전체를 div로 묶어서 main으로 크게 묶기 -->
+							<div class="li-pic b-rad-1">
+								<!-- <img v-if="stuff.imageName != null" class="listview-image" :src="'/images/member/stuff/' + stuff.imageName" alt="img"> -->
+								<img v-if="stuff.imageName != null" class="listview-image"
+									:src="'/images/member/stuff/' + stuff.imageName" alt="img">
+								<!-- <img v-else-if="stuff.categoryId == 1" class="listview-image" src="/images/member/stuff/chick.jpg" alt="img"> -->
+								<!-- <img v-else-if="stuff.categoryId == 2" class="listview-image" src="/images/member/stuff/heart.png" alt="img"> -->
+								<img v-else-if="stuff.categoryId == 3" class="listview-image" src="/images/member/stuff/costco.jpg"
+									alt="img">
+								<img v-else class="listview-image" src="/images/member/stuff/member.png" alt="img">
+							</div>
+							<div class="li-categ-place">
+								<span class="li-categ-place-categoryName">
+									{{ stuff.categoryName }}
+								</span>
+								<span class="li-categ-place-p">
+									{{ stuff.place }}
+								</span>
+							</div>
+							<div class="li-dday">{{ stuff.dDay }}</div>
+							<!-- <div class="li-heart icon icon-heart">
+										찬하트
+									</div> -->
+							<div class="li-subj">{{ stuff.title }}</div>
+							<div class="li-member">
+								<span class="li-member-limit"> 1</span>
+								/ {{ stuff.numPeople }} 명
+							</div>
+							<!-- <div class="li-place">{{ stuff.place }}</div> -->
+							<!-- <div class="li-date">{{ stuff.deadline }} | {{'D' + stuff.dDay }}</div> -->
+
+							<!-- <div class="li-date">{{'D' + stuff.dDay }}</div> -->
 						</div>
-						<div class="li-categ header-categ li-header-categ">{{ stuff.categoryName }}</div>
-						<!-- <div class="li-heart icon icon-heart">
-							찬하트
-						</div> -->
-						<div class="li-subj">{{ stuff.title }}</div>
-						<div class="li-member"> 1 / {{ stuff.numPeople }}</div>
-						<div class="li-date">{{ stuff.deadline }}</div>
-					</div>
-					<div>
-						<h1 class="icon icon-line">선 긋기</h1>
-					</div>
-				</router-link>
+					</router-link>
 			</div>
 
-			<button class="btn-next more-list" @click="addListHandler">더보기<span>+{{listCount}}</span></button>
+			<button class="btn-next more-list" @click="addListHandler"> 더보기 <span> + {{ listCount }}</span></button>
 			<router-link to="/member/stuff/reg">
 				<div class="reg-stuff">
 					+

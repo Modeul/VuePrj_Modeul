@@ -81,6 +81,24 @@ export default {
 				.catch(error => console.log('error', error));
 
 		},
+		update(){
+			// var myHeaders = new Headers();
+			// myHeaders.append("Content-Type", "multipart/form-data");
+
+			var formdata = new FormData(this.$refs.form);
+
+			var requestOptions = {
+				method: 'PUT',
+				// headers: myHeaders,
+				body: formdata,
+				redirect: 'follow'
+			};
+
+			fetch(`http://localhost:8080/member/stuffs/update/${this.$route.params.id}`, requestOptions)
+			.then(response => response.text())
+			.then(result => console.log(result))
+			.catch(error => console.log('error', error));
+		},
 
 		// 썸네일 조작
 		uploadImage(e) {
@@ -151,7 +169,7 @@ export default {
 			<!-- =================== reg2 : main ===================== -->
 			<main class="d-fl-jf m-b">
 
-				<form @submit.prevent="upload" method="post" enctype="multipart/form-data" ref="form">
+				<form @submit.prevent="update" enctype="multipart/form-data" ref="form">
 					<div>
 						<input type="submit" class="reg2-post" value="저장">
 					</div>
@@ -171,7 +189,7 @@ export default {
 					</div>
 
 					<!-- 카테고리 목록 선택 -->
-					<select class="category-box" name="categoryList" v-model="category.id">
+					<select class="category-box" name="categoryId" v-model="category.id" >
 						<option v-for="c in categoryList" :value="c.id" class="" name="categoryId" v-text="c.name"></option>
 					</select>
 
@@ -196,9 +214,15 @@ export default {
 					<!-- 마감일 설정 -->
 					<div id="btn-date" class="select-box d-fl jf-sb">
 						<label for="datetime-local" class="input-field-txt">마감시간</label>
-						<input class="date-pic" type="datetime-local" data-placeholder="날짜를 선택해주세요." required aria-required="true"
-							name="deadline" className={styles.selectDay} onChange={StartDateValueHandler}
-							v-model="stuff.deadline">
+						<input class="date-pic" 
+						type="datetime-local" 
+						data-placeholder="날짜를 선택해주세요." 
+						required 
+						aria-required="true"
+						name="deadline" 
+						className={styles.selectDay} 
+						onChange={StartDateValueHandler}
+						v-model="stuff.deadline">
 						<!-- value={startDateValue} -->
 						<!--  -->
 					</div>
