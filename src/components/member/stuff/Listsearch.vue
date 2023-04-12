@@ -3,8 +3,8 @@
 
         <!-- 검색창 들어가는 부분 -->
         <header class="d-fl-al">
-                <div>
-                    <a href="./list.html" class="icon icon-back" >뒤로가기</a>
+            <div>
+                    <router-link to="/member/stuff/list" class="icon icon-back">뒤로가기</router-link>
                 </div>
 
                 <div class="search-container">
@@ -78,3 +78,8 @@
 
     </section>
 </template>
+
+
+<style scoped>
+    @import "/css/component/member/stuff/component-list-search.css";
+</style>

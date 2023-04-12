@@ -1,154 +1,138 @@
 <template>
-        <!-- =================== reg1 ======================= -->
-        <section class="reg1-form">
-        <h1 class="d-none">reg1</h1>
+  <!-- =================== reg1 ======================= -->
+  <section class="reg1-form" :class="{ 'd-none': isNext }">
+      <h1 class="d-none">reg1</h1>
 
-        <section class="canvas-1 d-fl fl-dir-col">
-            <!-- =================== reg1 : header ===================== -->
-            <header class="d-fl">
-                
-                <div>
-                    <a href="./list.html" class="icon icon-back">뒤로가기</a>
-                </div>
-                
-                <div class="hd-title-box">
-                    <h1 class="hd-title">카테고리 설정</h1>
-                </div>
-            </header>
-    
-            <!-- =================== reg1 : main ===================== -->
-            <main>
-                <div class="reg1-main-content">
-                    <h1>지역 주민들과 어떤 물건을 같이 살까요?</h1>
-                </div>
-    
-                <div class="category-select">
-                    <ul class="select-box-list">
-                        <li><button class="select-box categ-eff" name="merchandise">일반상품</button></li>
-                        <li><button class="select-box categ-eff" name="supermarket">대형마트 대량 물품</button></li>
-                        <li><button class="select-box categ-eff" name="delivery_food">딜리버리 푸드</button></li>
-                    </ul>
-                    <button class="btn-next m-t-button">다음</button>
-                </div>
-            </main>
-    
-        </section>
+      <section class="canvas-1 d-fl fl-dir-col">
+      <!-- =================== reg1 : header ===================== -->
+          <header class="d-fl">
+              <div>
+                  <router-link to="/member/stuff/list" class="icon icon-back">뒤로가기</router-link>
+              </div>
+
+              <div class="hd-title-box">
+                  <h1 class="hd-title">카테고리 설정</h1>
+              </div>
+          </header>
+
+          <!-- =================== reg1 : main ===================== -->
+          <main>
+              <div class="reg1-main-content">
+                  <h1>지역 주민들과 어떤 물건을 같이 살까요?</h1>
+              </div>
+
+              <div class="category-select">
+                  <ul class="select-box-list">
+                      <li v-for="category in categoryList" :key="index">
+                        <button @click.prevent="categorySelectHandler(category.id)" :id="category.id"  class="select-box" :class="{'categ-eff': categorySelected === category.id }">{{ category.name }}</button>
+                      </li>
+                  </ul>
+                  <button class="btn-next m-t-button" @click.prevent="dnoneHandler"> 다음 </button>
+              </div>
+          </main>
+      </section>
   </section>
 
-    <!-- =================== reg2 ======================= -->
-    <section class="reg2-form d-none">
-        <h1 class="d-none">reg2</h1>
+  <!-- =================== reg2 ======================= -->
+  <section class="reg2-form" :class="{ 'd-none': isNext === false }">
+      <h1 class="d-none">reg2</h1>
 
         <section class="canvas-1 d-fl fl-dir-col">
 
             <h1 class="d-none">reg2</h1>
-            <!-- header에 id를 부여해줄 것 - id는 html 짠사람이 부여해주기 때문이다! 이거로 css 경로 부여! -->
         
             <!-- =================== reg2 : header ===================== -->
             <header class="">
                 
                 <div class="reg2-back">
-                    <a class="icon icon-back">뒤로가기</a>
+                    <a class="icon icon-back" @click.prevent="dnoneHandler">뒤로가기</a>
                 </div>
                 
                 <div class="hd-title-box">
-                    <h1 class="hd-title">글 등록하기</h1>
+                    <h1 class="hd-title">글 올리기</h1>
                 </div>
             </header>
     
             <!-- =================== reg2 : main ===================== -->
             <main class="d-fl-jf m-b">
-                
-                <!-- form method post로 수정하기! -->
-                <form action="./list.html" method="get" enctype="multipart/form-data">
-        
+
+                <form @submit.prevent="upload" method="post" enctype="multipart/form-data" ref="form">
                     <div>
                         <input type="submit" class="reg2-post" value="올리기">
                     </div>
-                    
+
+                     <!-- 이미지 업로드  -->
                     <div class="file-box">
-                        <!-- 파일업로드 버튼 만드는 법 -->
                         <label for="file">
                             <div class="btn-file">파일업로드</div>
-                            <div class="btn-uploaded-files">파일업로드된 파일들1</div>
+                            <div class="btn-uploaded-files">
+                                파일업로드된 파일들1
+                                <div class="btn-uploaded-files" id="result_file">
+                                    <img class="uploaded-files" :src="imageURL" />
+                                </div>
+                            </div>
                             <div class="btn-uploaded-files">파일업로드된 파일들2</div>
                         </label>
     
-                        <input type="file" class="d-none" id="file" name="file" multiple>
+                        <input type="file" class="d-none" id="file" name="imgs" multiple accept="image/*" @change="uploadImage">
                     </div>
 
-                    <!-- 기존 카테고리 -->
-                    <select class="category-box" name="category_list">
-                    	
-                    	<!-- 타임리프 each 이용 --> 
-                        <option class="" value="merchandise" name="merchandise">일반상품</option>
-                        <option class="" value="supermarket" name="supermarket">대형마트 대량 물품</option>
-                        <option class="" value="delivery_food" name="delivery_food">딜리버리 푸드</option>
-                    </select>
+                   <!-- 카테고리 목록 선택 -->
+                  
 
-                    <!-- 가로 스크롤 수정하기 -->
+                  <select class="category-box" name="categoryList">
+                      <!-- <option class="d-none" value="null">{{ stuff.categoryId }}</option> -->
+                      
+                      <option v-for="c in categoryList" v-bind:selected="c.id == stuff.categoryId" name="categoryId" v-text="c.name"></option>
+
+                      <!-- <option v-for="c in categoryList" v-bind:selected="c.id === stuff.categoryId" name="categoryId" v-text="c.id"></option> -->
+                          <!-- <option v-for="c in categoryList" :value="c.id" class="" name="categoryId" v-text="c.name"></option> -->
+                  </select>
+
+                    
                     <div class="select-box">
                         <label for="title" class="input-field-txt">제목</label>
-                        <input type="text" class="input-field" id="title" name="title">
+                        <input type="text" class="input-field" id="title" name="title" v-model="stuff.title">
                     </div>
-                    
                     
                     <!-- 인원수 조절 -->
                     <div class="select-box2 d-fl">
-                        <!--  label 태그 for="people-count" 적으면 온클릭 오류 발생함. -->
                         <label for="" class="input-field-txt">인원</label> 
                             <div class="people-count-box">
                                 <input class="btn-minus" id="people-count"
-                                    type="button" onclick='count("minus")' value="">
-                                <input type="text" class="people-count-num" name="numPeople" id="result" value=2>
+                                    type="button" value="" @click.prevent="numPeopleMinusHandler">
+
+                                <input type="text" class="people-count-num" name="numPeople" id="result" v-model="stuff.numPeople">
                                 
                                 <input class="btn-plus" id="people-count"
-                                    type="button" onclick='count("plus")' value="">
+                                    type="button" value="" @click.prevent="numPeoplePlusHandler">
                             </div>
                     </div>
                     
-                    <!-- 인원수 조절 JS -->
-                    <!-- <script>
-                        function count(type)  {
-                          // 결과를 표시할 element
-                          const resultElement = document.getElementById('result');
-                          // 현재 화면에 표시된 값
-                          let number = resultElement.innerText;
-                          // 더하기/빼기
-                          if(type === 'plus') {
-                            number = parseInt(number) + 1;
-                          }else if(type === 'minus')  {
-                            number = parseInt(number) - 1;
-                          }
-                          // 결과 출력
-                          resultElement.innerText = number;
-                        }
-                        </script> -->
-                        
-                 <div id="btn-date" class="select-box d-fl jf-sb">
-                    <label for="datetime-local" class="input-field-txt">마감시간</label>
-                        <input
-                            class="date-pic"
-                            type="datetime-local"
-                            data-placeholder="날짜를 선택해주세요."
-                            required
-                            aria-required="true" 
-                            value={startDateValue}
-                            className={styles.selectDay}
-                            >
-                            <!-- onChange={StartDateValueHandler} -->
-                    </div>
+                    <!-- 마감일 설정 -->
+                    <div id="btn-date" class="select-box d-fl jf-sb">
+                        <label for="datetime-local" class="input-field-txt">마감시간</label>
+                            <input
+                                class="date-pic"
+                                type="datetime-local"
+                                data-placeholder="날짜를 선택해주세요."
+                                required
+                                aria-required="true" 
+                                name="deadline"
+                                className={styles.selectDay}
+                                onChange={StartDateValueHandler}
+                                v-model="stuff.deadline"
+                                >
 
+                    </div>
 
                     <div class="select-box">
                         <label for="price" class="input-field-txt">가격</label>
-                        <input type="text" class="input-field" name="price" id="price">
+                        <input type="text" class="input-field" name="price" id="price" v-model="stuff.price">
                     </div>
 
                     <!-- required 속성: 해당 필드가 기재되었을 때만 submit 가능. -->
                     
-                    
-
 
                     <!-- 복구용 코드(인원수) -->
                     <!-- <div class="select-box">
@@ -156,16 +140,15 @@
                         <input type="text" class="input-field" id="people-count">
                     </div> -->
 
-                    <!-- 복구용 코드(날짜선택) -->
-                    <!-- <label for="date" class="input-field-txt">날짜</label>
+          <!-- 복구용 코드(날짜선택) -->
+          <!-- <label for="date" class="input-field-txt">날짜</label>
                         <input type="datetime-local" id="date" class="input-field2" name="date-start"
                         value="2023-02-26"
                         min="2020-01-01" max="2025-12-31"> -->
-                    
 
-                    <!-- 모달 추가 -->
-                    <!-- 모달 html -->
-                    <!-- <div class="select-box btn-open-popup">모달 띄우기</div>
+          <!-- 모달 추가 -->
+          <!-- 모달 html -->
+          <!-- <div class="select-box btn-open-popup">모달 띄우기</div>
                     <div class="modal">
                         <div class="modal_body">
                             날짜선택
@@ -174,8 +157,8 @@
                             min="2020-01-01" max="2025-12-31">
                         </div>
                       </div> -->
-                      <!-- 모달 JS -->
-                    <!-- <script>
+          <!-- 모달 JS -->
+          <!-- <script>
                         const body = document.querySelector('body');
                         const modal = document.querySelector('.modal');
                         const btnOpenPopup = document.querySelector('.btn-open-popup');
@@ -201,22 +184,20 @@
                           }
                         });
                     </script> -->
-
-        
                            
                     <div class="select-box">
                         <label for="place" class="input-field-txt">장소</label>
-                        <input type="text" class="input-field" name="place" id="place">
+                        <input type="text" class="input-field" name="place" id="place" v-model="stuff.place">
                     </div>
     
                     <div class="select-box">
                         <label for="url" class="input-field-txt">링크</label>
-                        <input type="text" class="input-field" name="url" id="url">
+                        <input type="text" class="input-field" name="url" id="url" v-model="stuff.url">
                     </div>
     
                     <div class="select-box select-content d-fl fl-dir-col">
                         <label for="content" class="input-field-txt2">내용</label>
-                        <textarea class="input-field input-content" name="content" id="content" cols="30" rows="10"></textarea>
+                        <textarea class="input-field input-content" name="content" id="content" cols="30" rows="10" v-model="stuff.content"></textarea>
                     </div>
                 </form>
             </main>
@@ -224,3 +205,124 @@
         </section>
     </section>
 </template>
+
+<script>
+    export default {
+        data() {
+            return {
+                categorySelected: null,
+                isNext:false,
+                categoryList:[],
+                file:[],
+                imageURL:'',
+                stuff:{
+                    title: "아메리카노",
+                    place: "이촌동",
+                    numPeople: "2",
+                    categoryId: 3,
+                    deadline: "",
+                    price: "2000",
+                    url: "www.naver.com",
+                    content: "5000",
+                    imageList: [
+                        {
+                            "id": 3,
+                            "name": "24324324",
+                            "stuffId": 3
+                        }
+                    ]
+                },
+
+            }
+        },
+        methods: {
+            /* reg1 <-> reg2 이동 이벤트 */
+            dnoneHandler(){
+                this.isNext = !this.isNext;
+            },
+
+            categorySelectHandler(categoryId){
+              this.categorySelected = categoryId
+              this.stuff.categoryId = event.currentTarget.id;
+          },
+
+            /* 인원 수 증감 이벤트 */
+            numPeoplePlusHandler(stuff){
+            if(this.stuff.numPeople>=1 && this.stuff.numPeople<16)
+                this.stuff.numPeople++;
+            },
+            numPeopleMinusHandler(stuff){
+                if(this.stuff.numPeople>=2 && this.stuff.numPeople<=16)
+                this.stuff.numPeople--;
+            },
+
+            /* selectbox에 카테고리 목록 불러오기 */
+            loadCategory(){
+                var requestOptions = {
+                    method: 'GET',
+                    redirect: 'follow'
+                };
+                
+                fetch("http://localhost:8080/member/stuff/categories", requestOptions)
+                    .then(response => response.json())
+                    .then(categoryList => {
+                      console.log(categoryList);
+                      this.categoryList = categoryList;
+                      console.log(this.categoryList);
+                    })
+                    .catch(error => console.log('error', error));
+            },
+
+            // 파일 업로드시, 이벤트 처리
+            upload(){
+                console.log(this.stuff);
+
+                var formData = new FormData(this.$refs.form);
+
+                var requestOptions = {
+                    method: 'POST',
+                    body: formData,
+                    redirect: 'follow'
+                };
+
+                fetch("http://localhost:8080/member/stuffs/upload", requestOptions)
+                .then(response => response.text())
+                .then(result => console.log(result))
+                .catch(error => console.log('error', error));
+
+            },
+
+            // 썸네일 조작
+            uploadImage(e){
+                this.file = e.target.files;
+                console.log(this.file);
+                url = URL.createObjectURL(this.file[0]);
+                console.log(url);
+                this.imageURL = url;
+            },
+        },
+        mounted() {
+            this.numPeoplePlusHandler();
+            this.numPeopleMinusHandler();
+
+            this.loadCategory();
+
+        },
+        updated(){
+
+            console.log(this.categoryId);
+              
+        }
+        
+    }
+</script>
+
+<style scoped>
+@import "/css/component/member/stuff/component-reg.css";
+
+select {
+  -webkit-appearance:none; /* 크롬 화살표 없애기 */
+  -moz-appearance:none; /* 파이어폭스 화살표 없애기 */
+  appearance:none /* 화살표 없애기 */
+}
+</style>

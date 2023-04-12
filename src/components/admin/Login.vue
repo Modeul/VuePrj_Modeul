@@ -1,4 +1,10 @@
 <template>
+
+    <header>
+        <div class="header-container">
+            <h1 class="logo-main logo-moduel m-t-138px">mo_deul</h1>
+        </div>
+    </header>
     <main>
         <div class="input-container">
             
@@ -27,3 +33,9 @@
 
     </main>    
 </template>
+
+<style scoped>
+    @import "/css/component/component.css";
+    @import "/css/component/admin/component-admin.css";
+    @import "/css/component/admin/admin-login.css";
+</style>

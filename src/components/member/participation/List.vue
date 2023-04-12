@@ -1,7 +1,7 @@
 <template>
     <section class="canvas">
         <header>
-            <a class="icon icon-back" href="../stuff/list.html">뒤로가기</a>
+            <router-link to="/member/stuff/list" class="icon icon-back">뒤로가기</router-link>
         </header>
 
         <main>
@@ -56,3 +56,8 @@
         </main>
     </section>
 </template>
+
+<style scoped>
+    @import "/css/component/member/stuff/component-list.css";
+    @import "/css/component/member/participation/component-parti-list.css";
+</style>
