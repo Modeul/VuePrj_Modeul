@@ -13,6 +13,9 @@ export default {
 		};
 	},
 	methods: {
+		// imgErrorHandler(e) {
+      // e.target.src = '/images/member/stuff/member.png';
+    // },
 		addListHandler() {
 			this.page++;
 			fetch(`http://localhost:8080/member/stuffs?p=${this.page}`)
@@ -138,13 +141,10 @@ export default {
 						<div class="d-gr li-gr m-t-13px list-cl">
 							<!-- 나중에 전체를 div로 묶어서 main으로 크게 묶기 -->
 							<div class="li-pic b-rad-1">
-								<!-- <img v-if="stuff.imageName != null" class="listview-image" :src="'/images/member/stuff/' + stuff.imageName" alt="img"> -->
-								<img v-if="stuff.imageName != null" class="listview-image"
-									:src="'/images/member/stuff/' + stuff.imageName" alt="img">
-								<!-- <img v-else-if="stuff.categoryId == 1" class="listview-image" src="/images/member/stuff/chick.jpg" alt="img"> -->
-								<!-- <img v-else-if="stuff.categoryId == 2" class="listview-image" src="/images/member/stuff/heart.png" alt="img"> -->
-								<img v-else-if="stuff.categoryId == 3" class="listview-image" src="/images/member/stuff/costco.jpg"
-									alt="img">
+								<img v-if="stuff.imageName != null" class="listview-image" :src="'/images/member/stuff/' + stuff.imageName" alt="img">
+								<img v-else-if="stuff.categoryId == '1'" class="listview-image" src="/images/member/stuff/category1.png" alt="img">
+								<img v-else-if="stuff.categoryId == '2'" class="listview-image" src="/images/member/stuff/category2.png" alt="img">
+								<img v-else-if="stuff.categoryId == '3'" class="listview-image" src="/images/member/stuff/category3.png" alt="img">
 								<img v-else class="listview-image" src="/images/member/stuff/member.png" alt="img">
 							</div>
 							<div class="li-categ-place">
