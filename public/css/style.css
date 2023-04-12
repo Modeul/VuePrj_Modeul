@@ -289,6 +289,7 @@
 	height: 4vh;
 	display: inline-block;
 	text-indent: -999px;
+    margin-right: 10px;
 }
 
 /* 일단 detail heart만! */
@@ -334,6 +335,7 @@
 
 .icon-alarm {
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='20' width='20'%3E%3Cpath d='M4 15.5V14h1V9q0-1.792 1.115-3.177Q7.229 4.438 9 4.104V3q0-.417.292-.708Q9.583 2 10 2t.708.292Q11 2.583 11 3v1.104q1.771.334 2.885 1.708Q15 7.188 15 9v5h1v1.5Zm6-5.875ZM10 18q-.625 0-1.062-.438Q8.5 17.125 8.5 16.5h3q0 .625-.438 1.062Q10.625 18 10 18Zm-3.5-4h7V9q0-1.458-1.021-2.479Q11.458 5.5 10 5.5q-1.458 0-2.479 1.021Q6.5 7.542 6.5 9Z'/%3E%3C/svg%3E");
+    cursor: pointer;
 }
 
 /* =========== 사용자용 사이드바 메뉴 아이콘 ===========  */
@@ -353,9 +355,7 @@
 
 /* ========================================================== */
 
-.icon-alarm {
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='20' width='20'%3E%3Cpath d='M4 15.5V14h1V9q0-1.792 1.115-3.177Q7.229 4.438 9 4.104V3q0-.417.292-.708Q9.583 2 10 2t.708.292Q11 2.583 11 3v1.104q1.771.334 2.885 1.708Q15 7.188 15 9v5h1v1.5Zm6-5.875ZM10 18q-.625 0-1.062-.438Q8.5 17.125 8.5 16.5h3q0 .625-.438 1.062Q10.625 18 10 18Zm-3.5-4h7V9q0-1.458-1.021-2.479Q11.458 5.5 10 5.5q-1.458 0-2.479 1.021Q6.5 7.542 6.5 9Z'/%3E%3C/svg%3E");
-}
+
 
 .icon-line {
 	background-image: url("data:image/svg+xml,%3Csvg width='328' height='3' viewBox='0 0 328 3' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cline x1='0.00158227' y1='0.500003' x2='327.001' y2='1.53481' stroke='black' stroke-opacity='0.15'/%3E%3C/svg%3E%0A");
@@ -451,7 +451,6 @@
 .header-categ-box {
 	display: flex;
 	justify-content: flex-start;
-	padding-left: 10px;
 	margin-top: 12px;
 
 	gap: 0.6rem;
@@ -468,7 +467,7 @@
 	padding: 3px 8px;
 	/* 수정 */
 	font-size: 8px;
-	/* flex-basis: 10px; */
+	cursor: pointer;
 }
 
 /* ---- select-box 박스 ---------------------- */

@@ -211,10 +211,14 @@ export default {
 	color: #fff;
 	border-radius: 50%;
 	text-align: center;
-	line-height: 30px;
+	line-height: 2;
 	position: fixed;
 	right: 30px;
 	bottom: 30px;
 	cursor: pointer;
+}
+.reg-stuff:hover{
+	transform: rotate(180deg);
+	transition: 0.6s;
 }
 </style>

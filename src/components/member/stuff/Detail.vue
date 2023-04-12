@@ -121,11 +121,8 @@ export default {
                 <div class="detail-status">모집중</div>
             </div>
             
-            <div class="d-fl">
-               
-                <div class="detail-heart">542</div>
-                <div class="icon-heart">하트</div> 
-            </div>
+            <div class="icon-heart">하트</div> 
+            
             
             
           </div>
@@ -140,12 +137,19 @@ export default {
         <!-- detail-info : detail-main - item3 -->
         <section class="canvas detail-info">
           <h1 class="d-none">info</h1>
-          <div>인원</div>
-          <div>2 / {{ stuff.numPeople }} 명</div>
-          <div>기한</div>
-          <div>{{ stuff.deadline }}</div>
-          <div>장소</div>
-          <div>{{ stuff.place }}</div>
+		  <div class="detail-in">
+			<div class="detail-info-title">인원</div>
+          	<div class="detail-info-txt">2 / {{ stuff.numPeople }} 명</div>
+		  </div>
+          <div class="detail-in">
+			<div class="detail-info-title">기한</div>
+          	<div class="detail-info-txt">{{ stuff.deadline }}</div>
+		  </div>
+          <div class="detail-in">
+			<div class="detail-info-title">장소</div>
+         	 <div class="detail-info-txt">{{ stuff.place }}</div>
+		  </div>
+          
         </section>
         <!-- detail-writing : detail-main - item4 -->
         <section class="canvas detail-writing">
@@ -163,16 +167,19 @@ export default {
 		<section class="canvas detail-join">
 			<h1 class="d-none">join</h1>
 			<h2 class="detail-join-title">참여중인 사람</h2>
-			<div class="detail-join-members">
-				<a class="icon-member">멤버a</a>
-				<a class="icon-member">멤버b</a>
-				<a class="icon-member">멤버c</a>
-				<a class="icon-member">멤버d</a>
-				<a class="icon-member">멤버e</a>
+			<div class="detail-join-wrap">
+				<div class="detail-join-members">
+					<a class="icon-member">멤버a</a>
+					<a class="icon-member">멤버b</a>
+					<a class="icon-member">멤버c</a>
+					<a class="icon-member">멤버d</a>
+					<a class="icon-member">멤버e</a>
+				</div>
+				<button class="detail-join-button" onclick="location.href='list.html'">
+					참여하기
+				</button>
 			</div>
-			<button class="detail-join-button" onclick="location.href='list.html'">
-				참여하기
-			</button>
+			
 		</section>
   </div>
 </template>

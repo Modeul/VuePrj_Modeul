@@ -81,79 +81,119 @@ main {
 
 .detail-info {
   font-weight: 400;
-  font-size: 1em;
+  font-size: 0.85em;
 
   /* border: 1px solid; */
   border-radius: 8px;
 
-  /* height: 10%; */
+  
   width: 320px;
+  height: 90px;
 
-  padding: 12px 12px;
+  padding: 12px 16px;
   box-sizing: border-box;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 8%);
 
-  display: grid;
-  grid-template-columns: repeat(2, minmax(25%, auto));
-  grid-template-rows: repeat(3, auto);
-  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.detail-in{
+  display: flex;
   align-items: center;
 }
-
+.detail-info-title{
+  color: #888A89;
+  font-weight: 500;
+  margin-right: 10px;
+}
+.detail-info-txt{
+  font-size: 0.89em;
+}
 .detail-writing {
-    height: 170px;
+    height: 180px;
     width: 320px;
     margin-top: 13px;
 }
 .detail-paragraph {
     height: 100%;
-    overflow: auto;
+    overflow: hidden;
     padding: 12px 12px;
     box-sizing: border-box;
     font-weight: 300;
     font-size: 0.9em;
+    word-break: break-all;
 }
 
 .detail-join {
-    background-color: #fff;
-    height: 15%;
-    display: grid;
-    grid-template-areas:
-        "title button"
-        "members button";
-    justify-content: stretch;
-    position: absolute;
-    bottom: 0;
-    width: 360px;
-    margin: 0 auto;
-    box-shadow: rgb(0 0 0 / 12%) 0px -6px 6px -6px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  position: absolute;
+  bottom: 0;
+  width: 360px;
+  margin: 0 auto;
+  box-shadow: rgb(0 0 0 / 12%) 0px -6px 6px -6px;
+  padding: 13px 20px 22px 20px;
+  box-sizing: border-box;
 }
 
 .detail-join-title {
-  grid-area: title;
   font-size: 0.8em;
-  padding-top: 10px;
-    box-sizing: border-box;
+}
+.detail-join-wrap{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 15px;
 }
 .detail-join-members {
-  grid-area: members;
-  display: flex;
-  justify-content: space-around;
+    display: flex;
+    justify-content: space-between;
+    width: 200px;
 }
 .detail-join-button {
-  grid-area: button;
-
-  margin: auto 5% auto;
-
-  width: 70%;
-  height: 26%;
-
-  border: 1px solid;
-  border-radius: 7px;
-  font-size: 13px;
+    width: 62px;
+    height: 28px;
+    border-radius: 7px;
+    font-size: 13px;
     white-space: nowrap;
+    background-color: #63A0C2;
+    color: #fff;
+    font-size: 0.7em;
+    font-weight: 600;
+}
+.detail-join-button:hover{
+  background-color: #517A92;
+  transition: 0.5s;
 }
 
+/* 수정/삭제 모달 */
+.black-bg {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.white-bg {
+  width: 100%;
+  height: 40%;
+  margin: auto;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 1);
+}
+.close-button {
+  border: none;
+  background: #6667ab;
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+}
+.close-button:hover {
+  color: white;
+  transform: scale(1.1);
+  transition: all 0.5s;
+}
 .detail-edit{
   justify-content: space-between;
   margin-top: 12px;
