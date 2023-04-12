@@ -111,9 +111,11 @@ main {
   font-size: 0.89em;
 }
 .detail-writing {
-    height: 180px;
+    /* height: 180px; */
+    height: auto;
     width: 320px;
     margin-top: 13px;
+    margin-bottom: 100px;
 }
 .detail-paragraph {
     height: 100%;
@@ -130,7 +132,7 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: stretch;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 360px;
   margin: 0 auto;
