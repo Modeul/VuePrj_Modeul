@@ -12,6 +12,8 @@ export default {
 			listCount: 0
 		};
 	},
+	computed: {
+	},
 	methods: {
 		// imgErrorHandler(e) {
       // e.target.src = '/images/member/stuff/member.png';
@@ -44,24 +46,36 @@ export default {
 				const isToday = (deadlineObj.format('YYYY-MM-DD') == today) ? '오늘, ' : ''
 				item.deadline = isToday + deadlineObj.format("M월 D일 (dd) HH시까지");
 
+				// deadlineState
+				// 0: 마감 -> (마감) // 회색
+				// 1: 1일 이상 남음 -> (D-n) // 파랑? 초록?
+				// 2: 당일 마감 -> (마감 n 시간 전) // 초록? 주황? 
+				// 3: 1시간 내 마감 -> (1시간 내 마감)  // 빨강?
+
 				item.dDay = dayjs().diff(deadlineObj, 'day');
-				if (parseInt(item.dDay) < 0)
+				if (parseInt(item.dDay) < 0){
 					item.dDay = 'D' + item.dDay;
+					item.deadlineState = 1;
+				}
 				else if (parseInt(item.dDay) == 0) {
 					item.dDay = deadlineObj.diff(dayjs(), 'hours')
-					if (parseInt(item.dDay) > 0)
+					if (parseInt(item.dDay) > 0){
 						item.dDay = '마감 ' + deadlineObj.diff(dayjs(), 'hours') + '시간 전'
-					else if (parseInt(item.dDay) == 0)
+						item.deadlineState = 2;
+					}
+					else if (parseInt(item.dDay) == 0){
 						item.dDay = '1시간 내 마감';
-					else
+						item.deadlineState = 3;
+					}
+					else{
 						item.dDay = '마감';
+						item.deadlineState = 0;
+					}
 				}
-				else
+				else{
 					item.dDay = '마감';
-
-				// deadlineObj.diff(today, 'day');
-
-				// 
+					item.deadlineState = 0;
+				}
 				resultList.push(item);
 			}
 			return resultList;
@@ -155,10 +169,10 @@ export default {
 									{{ stuff.place }}
 								</span>
 							</div>
-							<div class="li-dday">{{ stuff.dDay }}</div>
-							<!-- <div class="li-heart icon icon-heart">
-										찬하트
-									</div> -->
+							<div class="li-dday"
+							:class="(stuff.deadlineState == 0)? 'expired' : 
+							(stuff.deadlineState == 1)? 'day-left' : 
+							(stuff.deadlineState == 2)? 'hour-left' : 'minute-left' ">{{ stuff.dDay }}</div>
 							<div class="li-subj">{{ stuff.title }}</div>
 							<div class="li-member">
 								<span class="li-member-limit"> 1</span>
@@ -204,21 +218,4 @@ export default {
 <style scoped>
 @import "/css/component/member/stuff/component-list.css";
 
-.reg-stuff {
-	width: 30px;
-	height: 30px;
-	background-color: #63A0C2;
-	color: #fff;
-	border-radius: 50%;
-	text-align: center;
-	line-height: 2;
-	position: fixed;
-	right: 30px;
-	bottom: 30px;
-	cursor: pointer;
-}
-.reg-stuff:hover{
-	transform: rotate(180deg);
-	transition: 0.6s;
-}
 </style>

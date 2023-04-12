@@ -20,6 +20,31 @@
 	padding-bottom: 0.1rem;
 }
 
+.header-categ[value="1"]
+{
+	background-color: #F5CD81;
+	color: #FFFFFF;
+}
+
+.header-categ:not([value])
+{
+	background-color: #B9D9F8;
+	color: #40709E;
+}
+
+.header-categ[value="2"]
+{
+	background-color: #08B8B8;
+	color: #FFFFFF;
+}
+
+.header-categ[value="3"]
+{
+	background-color: #F2B8B8;
+	color: #FFFFFF;
+}
+
+
 .stuff-list{
 
 	padding: 12px 0;
@@ -30,7 +55,7 @@
 
 /* 320 * aa  */
 .li-gr {
-	grid-template-columns: 60px 8px 100px 80px 8px 64px;
+	grid-template-columns: 60px 8px 100px 74px 8px 70px;
 	grid-template-rows: 36px 12px 12px;
 	grid-template-areas:
 		"pic . subj subj . dday"
@@ -67,18 +92,45 @@ li-pic {
 }
 
 .li-dday {
-	background-color: #b8ccff82;
 	text-align: center;
 	border-radius: 5px;
 	grid-area: dday;
 	font-size: 0.5rem;
-	width: 64px;
+	/* width: 64px; */
 	height: 15px;
 	line-height: 15px;
 	margin-top: -20px;
 	font-weight: 600;
-    color: #56A4FF;
 }
+
+.li-dday.expired {
+	background-color: #19191982;
+	width: 35px;
+	margin-left: 35px;
+  color: #FFFFFF;
+}
+
+.li-dday.day-left {
+	background-color: #b8ccff82;
+	width: 30px;
+	margin-left: 40px;
+  color: #56A4FF;
+}
+
+.li-dday.hour-left {
+	background-color: #FAEEF0;
+	width: 70px;
+	/* margin-left: 34px; */
+  color: #FF687B;
+}
+
+.li-dday.minute-left {
+	background-color: #FAEEF0;
+	width: 70px;
+	/* margin-left: 34px; */
+  color: #FF687B;
+}
+
 
 /* 
 .li-place {
@@ -305,4 +357,22 @@ input[id="menuicon"]:checked+label+div {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+
+.reg-stuff {
+	width: 30px;
+	height: 30px;
+	background-color: #63A0C2;
+	color: #fff;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 2;
+	position: fixed;
+	right: 30px;
+	bottom: 30px;
+	cursor: pointer;
+}
+.reg-stuff:hover{
+	transform: rotate(180deg);
+	transition: 0.6s;
 }
