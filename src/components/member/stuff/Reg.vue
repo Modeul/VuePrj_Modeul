@@ -67,9 +67,7 @@
                             <div class="btn-file">파일업로드</div>
                             <div class="btn-uploaded-files">
                                 파일업로드된 파일들1
-                                <div class="btn-uploaded-files" id="result_file">
-                                    <img class="uploaded-files" :src="imageURL" />
-                                </div>
+                                <img class="uploaded-files" :src="imageURL" />
                             </div>
                             <div class="btn-uploaded-files">파일업로드된 파일들2</div>
                         </label>
@@ -216,7 +214,7 @@
                     title: '',
                     place: '',
                     numPeople: '2',
-                    categoryId: '',
+                    categoryId: 0,
                     deadline: '',
                     price: '',
                     url: '',
@@ -229,6 +227,7 @@
                         }
                     ]
                 },
+                url:'',
 
             }
         },
@@ -240,6 +239,7 @@
 
             categorySelectHandler(event){
             this.stuff.categoryId = event.currentTarget.id;
+            console.log(this.stuff.categoryId);
           },
 
             /* 인원 수 증감 이벤트 */
@@ -295,9 +295,9 @@
             uploadImage(e){
                 this.file = e.target.files;
                 console.log(this.file);
-                url = URL.createObjectURL(this.file[0]);
-                console.log(url);
-                this.imageURL = url;
+                this.url = URL.createObjectURL(this.file[0]);
+                console.log(this.url);
+                this.imageURL = this.url;
             },
         },
         mounted() {
