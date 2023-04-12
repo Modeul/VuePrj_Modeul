@@ -11,9 +11,6 @@
         </div>
         <br>
         <br>
-        <!-- <div>
-          <h1 class="logo title-3 m-t-42px">회원 가입</h1>
-        </div> -->
       </section>
     </header>
     <!-- ----------------------------------------------------------- -->
@@ -26,15 +23,9 @@
           action="signup"
           method="post"
         >
-          <!-- <br />양방향 바인딩 된 모델 <br />pwd : {{ member.pwd }} <br />email :
-          {{ member.email }} <br />code : {{ emailcode }} <br />emailconfirm :
-          {{ emailconfirm }} -->
-
           <div @change="checkUidDupl"
           class="input-field-2">
             <label for="uid" class="uid-label">
-
-
               <span class="d-none">uid</span>
               <input
                 type="text"
@@ -44,33 +35,11 @@
                 placeholder="아이디를 입력해주세요."
                 v-model="member.uid"
               />
-
-              
-              <!-- <input
-                @click.prevent="checkUidDupl"
-                v-if="!uidDupl||uidDupl==''"
-                class="btn-check"
-                id="btn-post"
-                type="button"
-                value=""
-              />
-              
-              <input
-                v-if="uidDupl"
-                class="btn-post"
-                id="btn-post"
-                type="button"
-                value="확인완료"
-              /> -->
             </label>
             <div v-if="uidbtn==''" class="btn-null"></div>
             <div v-if="uidbtn==true" class="btn-check"></div>
             <div v-if="uidbtn==false" class="btn-x"></div>
           </div>
-          <!-- <div v-if="uidError.length" class="error-font">
-            {{ uidError }}
-          </div> -->
-          <!-- @keyup="isValidpwd" -->
           <div @change="isValidPwd"
                 class="input-field-2 m-t-1">
             <label for="password" class="password-label">
@@ -88,9 +57,6 @@
             <div v-if="pwdbtn==true" class="btn-check"></div>
             <div v-if="pwdbtn==false" class="btn-x"></div>        
           </div>
-          <!-- <div v-if="pwdError.length" class="error-font">
-            {{ pwdError }}
-          </div> -->
           <div @change="isValidPwdConfirm" 
                 class="input-field-2 m-t-1">
             <label for="password-confirm" class="password-confirm-label">
@@ -126,9 +92,6 @@
             <div v-if="namebtn==true" class="btn-check"></div>
             <div v-if="namebtn==false" class="btn-x"></div>   
           </div>
-          <!-- <div v-if="nameError.length" class="error-font">
-            {{ nameError }}
-          </div> -->
 
           <div @change="checkNicknameDupl" 
               class="input-field-2 m-t-1">
@@ -142,29 +105,11 @@
                 placeholder="닉네임을 입력해주세요."
                 v-model="member.nickname"
               />
-              <!-- <input
-                @click.prevent="checkNicknameDupl"
-                v-if="!nicknameDupl||nicknameDupl==''"
-                class="btn-post"
-                id="btn-post"
-                type="button"
-                value="중복확인"
-              />
-              <input
-                v-if="nicknameDupl"
-                class="btn-post"
-                id="btn-post"
-                type="button"
-                value="확인완료"
-              /> -->
             </label> 
             <div v-if="nicknamebtn==''" class="btn-null"></div>
             <div v-if="nicknamebtn==true" class="btn-check"></div>
             <div v-if="nicknamebtn==false" class="btn-x"></div> 
           </div>
-          <!-- <div v-if="nicknameError.length" class="error-font">
-            {{ nicknameError }}
-          </div> -->
 
           <div @change="checkEmailDupl" 
               class="input-field-2 m-t-1">
@@ -178,23 +123,11 @@
                 placeholder="이메일을 입력해주세요."
                 v-model="member.email"
               />
-              <!-- <input
-                @click.prevent="checkEmailDupl"
-                v-if="!emailDupl||emailDupl==''"
-                class="btn-post"
-                id="btn-post"
-                type="button"
-                value="중복확인"
-              /> -->
-              
             </label>
             <div v-if="emailbtn==''" class="btn-null"></div>
             <div v-if="emailbtn==true" class="btn-check"></div>
             <div v-if="emailbtn==false" class="btn-x"></div> 
           </div>
-          <!-- <div v-if="emailError" class="error-font">
-            {{ emailError }}
-          </div> -->
 
           <div class="input-field-2 m-t-1">
             <label for="email" class="email-confirm-label">
@@ -225,14 +158,6 @@
                 type="button"
                 value="확인"
               />
-              
-              <!-- <input
-                v-if="emailDupl"
-                class="btn-post"
-                id="btn-post"
-                type="button"
-                value="확인완료"
-              /> -->
             </label>
             <div v-if="emailConfirmChk" class="btn-check"></div>
             <div v-if="emailcodeError" class="error-font">
@@ -305,12 +230,14 @@ export default {
       // uid 체크
       if (!this.member.uid) {
         this.ErrorMsg = "아이디는 필수 입력사항입니다.";
+        this.uidbtn = false;
       } else if (!this.uidDupl) {
         this.ErrorMsg = "중복 된 아이디입니다.";
       }
       // name 체크
       if (!this.member.name) {
         this.ErrorMsg = "이름은 필수 입력사항입니다.";
+        this.namebtn = false;
       }
       // nickname 체크
       if (!this.member.nickname) {
@@ -322,6 +249,7 @@ export default {
       // email 체크
       if (!this.member.email) {
         this.ErrorMsg = "이메일 주소는 필수 입력사항입니다.";
+        this.emailbtn = false;
       } else if (!this.emailDupl) {
         this.ErrorMsg = "중복 된 이메일 주소입니다.";
       } else if (!this.isValidEmail(this.member.email)) {
@@ -331,6 +259,7 @@ export default {
       }
       // pwd 체크
       if (!this.member.pwd) {
+        this.pwdbtn = false;
         this.ErrorMsg = "비밀번호는 필수 입력사항입니다.";
       } else if (this.member.pwd !== this.member.pwdConfirm) {
         this.ErrorMsg = "비밀번호가 일치하지 않습니다.";
@@ -343,23 +272,15 @@ export default {
         console.log("에러메시지 존재");
         return false;
       }
-      console.log("전체체크 시작");
-      console.log("emailError false : "+this.emailError);
-      console.log("pwdError false : "+this.pwdError);
-      console.log(this.namebtn);
-      console.log(this.emailconfirm);
-      console.log(this.uidDupl);
-      console.log(this.nicknameDupl);
-      console.log(this.emailDupl);
       // 전체 체크
       if (
-        !this.emailError &&
+        this.uidDupl &&
         !this.pwdError &&
         this.namebtn &&
-        this.emailconfirm &&
-        this.uidDupl &&
         this.nicknameDupl &&
-        this.emailDupl
+        this.emailDupl &&
+        !this.emailError &&
+        this.emailconfirm
       ) {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
@@ -374,15 +295,11 @@ export default {
           body: raw,
           redirect: "follow",
         };
-        console.log("fetch 실행");
         fetch("http://localhost:8080/members", requestOptions)
           .then((response) => response.text())
           .then((result) => console.log(result))
           .catch((error) => console.log("error", error));
-        console.log(
-          "%가입완료",
-          "background: green; color: white; display: block;"
-        );
+        console.log("%가입완료");
         this.$router.push('/login');
       }
     },
@@ -417,7 +334,6 @@ export default {
       if (this.member.pwd !== this.member.pwdConfirm) {
         this.pwdbtn2 = false;
         this.pwdError = "비밀번호가 일치하지 않습니다.";
-        console.log("비밀번호 확인 틀림 Signup.vue : ");
         return false
       }
       this.pwdbtn2 = true;
@@ -458,7 +374,6 @@ export default {
         .then((code) => {
           this.emailcode = code;
           console.log("emailcode : " + this.emailcode);
-          console.log("code : " + code);
         })
         .catch((error) => console.log("error", error));
 
@@ -487,10 +402,9 @@ export default {
       )
         .then((response) => response.text())
         .then((result) => {
-          if (result == "false") this.uidDupl = false;
+          if (result == "false") 
+            this.uidDupl = false;
           else this.uidDupl = true;
-
-          // console.log("this.uidDupl??? : " + this.uidDupl);
 
           if (!this.uidDupl) {
             this.uidError = "중복된 아이디 입니다.";
@@ -499,13 +413,8 @@ export default {
             this.uidError = "올바른 아이디 입니다.";
             this.uidbtn = true;
           }
-
-          // console.log("아이디 중복검사 결과 : " + result);
         })
         .catch((error) => console.log("error", error));
-
-        // this.toogle(this.member.uid, this.uidDupl);
-        console.log("체크"+this.uidbtn);
     },
     // 닉네임 중복 검사
     checkNicknameDupl() {
@@ -524,9 +433,7 @@ export default {
             this.nicknameError = "중복된 닉네임 입니다.";
           } else {
             this.nicknamebtn = true;
-            this.nicknameError = "올바른 닉네임 입니다.";
           }
-          console.log("닉네임 중복검사 결과 : " + result);
         })
         .catch((error) => console.log("error", error));
     },
@@ -549,8 +456,6 @@ export default {
             this.emailError = "";
             this.emailbtn = true;
           }
-
-          console.log("이메일 중복검사 결과 : " + result);
         })
         .catch((error) => console.log("error", error));
     },

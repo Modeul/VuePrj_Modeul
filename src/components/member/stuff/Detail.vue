@@ -10,12 +10,14 @@ export default {
 			category: {},
 			image: {},
 			// content: ''
+			closeCss: false
 		};
 	},
 	methods: {
 		/* 모달 이벤트 */
 		modalHandler() {
 			this.openModal = !this.openModal;
+			this.closeCss = !this.closeCss;
 		},
 		imageZoomInHandler() {
 			console.log("zoom-in");
@@ -73,14 +75,11 @@ export default {
 			<div v-if="openModal" class="icon-edit2">
 				<div class="d-fl-al fl-dir-col">
 					<router-link :to="'./'+stuff.id+'/edit/'">
-						<div class="icon-edit3">
-						수 정
-						</div>
+						<div class="icon-edit3"></div>
 					</router-link>
 					<div 
 						@click="deleteStuff"
 						class="icon-edit4">
-						삭 제
 					</div>
 				</div>
 			</div>
