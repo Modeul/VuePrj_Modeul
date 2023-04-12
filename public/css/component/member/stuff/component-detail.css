@@ -222,14 +222,49 @@ main {
   transition: all 0.5s;
 }
 .detail-edit{
-    justify-content: space-between;
-    margin-top: 12px;
-  }
-  
-  .ed-text{
-    font-size: 0.82em;
-    margin-left: 5px;
-    color: #979595;
-    cursor: pointer;
-  }
-  
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.ed-text{
+  font-size: 0.82em;
+  margin-left: 5px;
+  color: #979595;
+  cursor: pointer;
+}
+
+/* 수정 삭제 모달 */
+.icon-edit {
+  position: absolute;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='48' viewBox='0 96 960 960' width='48'%3E%3Cpath d='M120 816v-60h720v60H120Zm0-210v-60h720v60H120Zm0-210v-60h720v60H120Z'/%3E%3C/svg%3E");	position: absolute;
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  top: 18px;
+  right: 19px;
+  width: 24px;
+  height: 24px;
+}
+.icon-edit2 {
+  position: fixed;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='60' viewBox='0 0 100 60' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100' height='60' rx='5' fill='white' fill-opacity='0.8'/%3E%3Cline x1='1.70253e-10' y1='29.75' x2='100' y2='29.75' stroke='black' stroke-opacity='0.5' stroke-width='0.5'/%3E%3C/svg%3E%0A");
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  top: 40px;
+  right: 39px;
+
+  width: 100px;
+  height: 60px;
+
+  font-weight: 400;
+}
+/* 수정 */
+.icon-edit3{
+  margin-top: 7px;
+}
+/* 삭제 */
+.icon-edit4{
+  margin-top: 10.5px;
+
+}

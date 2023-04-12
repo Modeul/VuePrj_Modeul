@@ -81,7 +81,22 @@ export default {
 	<!-- detail : flex-container -->
 	<div class="detail">
 		<header>
-			<router-link router-link to="list" class="icon icon-back">뒤로가기</router-link>
+			<router-link to="list" class="icon icon-back">뒤로가기</router-link>
+			<i @click="modalHandler" class="icon-edit"></i>
+			<div v-if="openModal" class="icon-edit2">
+				<div class="d-fl-al fl-dir-col">
+					<router-link :to="'./'+stuff.id+'/edit/'">
+						<div class="icon-edit3">
+						수 정
+						</div>
+					</router-link>
+					<div 
+						@click="deleteStuff"
+						class="icon-edit4">
+						삭 제
+					</div>
+				</div>
+			</div>
 		</header>
 
 		<!-- detail - item1  -->
@@ -122,7 +137,7 @@ export default {
           </div>
           <p class="detail-heading-title">{{ stuff.title }}</p>
           <!-- <div class="d-fl">
-              <div class="ed-text"><router-link :to="'./EditReg/'+stuff.id">수정</router-link></div>
+              <div class="ed-text"><router-link :to="'./'+stuff.id+'/edit/'">수정</router-link></div>
               <div class="ed-text" @click="deleteStuff">삭제</div>
             </div> -->
           <div class="detail-price">{{ stuff.price }}원</div>
