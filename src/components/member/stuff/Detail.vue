@@ -48,29 +48,16 @@ export default {
 
 	},
 	mounted() {
-		// fetch(`http://localhost:8080/member/stuffs/${this.$route.params.id}`)
-		//     .then(response => response.json())
-		//     .then(stuff => this.stuff = stuff)
-		//     .catch(error => console.log("error", error));
-
 		fetch(`http://localhost:8080/member/stuffs/${this.$route.params.id}`)
 			.then((response) => response.json())
 			.then((data) => {
 				this.stuff = data.stuff;
 				this.category = data.category;
-				this.image = data.image;
+				this.image = data.imageList[0];
+				console.log(data);
 				this.formatDateStuff();
 			})
 			.catch((error) => console.log("error", error));
-
-		// this.imageZoomInHandler();
-		// this.imageZoomOutHandler();
-		// this.content = this.stuff.content.replaceAll(/\n|\r\n)/g,'<br>');
-	},
-	updated() {
-		console.log(this.stuff);
-		console.log(this.image);
-		console.log(this.category);
 	},
 };
 </script>
