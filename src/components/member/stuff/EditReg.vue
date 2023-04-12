@@ -81,7 +81,7 @@ export default {
 				.catch(error => console.log('error', error));
 
 		},
-		update(){
+		async update(){
 			// var myHeaders = new Headers();
 			// myHeaders.append("Content-Type", "multipart/form-data");
 
@@ -94,10 +94,12 @@ export default {
 				redirect: 'follow'
 			};
 
-			fetch(`http://localhost:8080/member/stuffs/update/${this.$route.params.id}`, requestOptions)
+			await fetch(`http://localhost:8080/member/stuffs/update/${this.$route.params.id}`, requestOptions)
 			.then(response => response.text())
 			.then(result => console.log(result))
 			.catch(error => console.log('error', error));
+
+			this.$router.replace('/member/stuff/'+this.stuff.id);
 		},
 
 		// 썸네일 조작
@@ -156,7 +158,7 @@ export default {
 			<!-- =================== reg2 : header ===================== -->
 			<header class="">
 
-				<router-link to="Detail">
+				<router-link :to="'/member/stuff/'+stuff.id">
 					<div class="reg2-back">
 						<a class="icon icon-back">뒤로가기</a>
 					</div>

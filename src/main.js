@@ -35,7 +35,7 @@ const routes = [
         {path: 'stuff/list', component: List},
         {path: 'stuff/:id', component: Detail},
         {path: 'stuff/reg', component: Reg},
-        {path: 'stuff/EditReg/:id', component: EditReg},
+        {path: 'stuff/:id/edit', component: EditReg},
         {path: 'stuff/listsearch', component: ListSearch},
         {path: 'stuff/gps', component: Gps},
         {path: 'participation/list', component: ParticipationList}

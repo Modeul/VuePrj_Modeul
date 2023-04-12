@@ -81,7 +81,22 @@ export default {
 	<!-- detail : flex-container -->
 	<div class="detail">
 		<header>
-			<router-link router-link to="list" class="icon icon-back">뒤로가기</router-link>
+			<router-link to="list" class="icon icon-back">뒤로가기</router-link>
+			<i @click="modalHandler" class="icon-edit"></i>
+			<div v-if="openModal" class="icon-edit2">
+				<div class="d-fl-al fl-dir-col">
+					<router-link :to="'./'+stuff.id+'/edit/'">
+						<div class="icon-edit3">
+						수 정
+						</div>
+					</router-link>
+					<div 
+						@click="deleteStuff"
+						class="icon-edit4">
+						삭 제
+					</div>
+				</div>
+			</div>
 		</header>
 
 		<!-- detail - item1  -->
@@ -93,51 +108,55 @@ export default {
 					<!-- <img src="../../../../images/member/stuff/chick.jpg" alt="img"> -->
 					<img v-if="image != null" :src="'/images/member/stuff/' + image.name" alt="img" />
 					<div v-else class="noImg" style="height:100px;"></div>
-        		</div>
-       			<!-- detail-heading : detail-main - item2 -->
-				<section class="canvas detail-heading">
-					<h1 class="d-none">heading</h1>
-					<div class="d-fl detail-edit" >
-						<div class="detail-top">
-							<div class="detail-category">{{ category.name }}</div>
-							<div class="detail-status">모집중</div>
-						</div>
-						
-						<div class="d-fl">
-						
-							<div class="detail-heart">542</div>
-							<div class="icon-heart">하트</div> 
-						</div>
-						
-					</div>
-					<p class="detail-heading-title">{{ stuff.title }}</p>
-					<!-- <div class="d-fl">
-						<div class="ed-text"><router-link :to="'./EditReg/'+stuff.id">수정</router-link></div>
-						<div class="ed-text" @click="deleteStuff">삭제</div>
-						</div> -->
-					<div class="detail-price">{{ stuff.price }}원</div>
-				
-				</section>
-				<!-- detail-info : detail-main - item3 -->
-				<section class="canvas detail-info">
-					<h1 class="d-none">info</h1>
-					<div>인원</div>
-					<div>2 / {{ stuff.numPeople }} 명</div>
-					<div>기한</div>
-					<div>{{ stuff.deadline }}</div>
-					<div>장소</div>
-					<div>{{ stuff.place }}</div>
-				</section>
-				<!-- detail-writing : detail-main - item4 -->
-				<section class="canvas detail-writing">
-					<h1 class="d-none">writing</h1>
-					<!-- <p class="detail-paragraph">
-						{{ stuff.content }}
-					</p> -->
-					<p v-html="getContent(stuff.content)" class="detail-paragraph"></p>
-				</section>
-      		</div>
-    	</main>
+
+
+          <!-- image : slideshow -->
+        </div>
+        <!-- detail-heading : detail-main - item2 -->
+        <section class="canvas detail-heading">
+          <h1 class="d-none">heading</h1>
+          <div class="d-fl detail-edit" >
+            <div class="detail-top">
+                <div class="detail-category">{{ category.name }}</div>
+                <div class="detail-status">모집중</div>
+            </div>
+            
+            <div class="d-fl">
+               
+                <div class="detail-heart">542</div>
+                <div class="icon-heart">하트</div> 
+            </div>
+            
+            
+          </div>
+          <p class="detail-heading-title">{{ stuff.title }}</p>
+          <!-- <div class="d-fl">
+              <div class="ed-text"><router-link :to="'./'+stuff.id+'/edit/'">수정</router-link></div>
+              <div class="ed-text" @click="deleteStuff">삭제</div>
+            </div> -->
+          <div class="detail-price">{{ stuff.price }}원</div>
+          
+        </section>
+        <!-- detail-info : detail-main - item3 -->
+        <section class="canvas detail-info">
+          <h1 class="d-none">info</h1>
+          <div>인원</div>
+          <div>2 / {{ stuff.numPeople }} 명</div>
+          <div>기한</div>
+          <div>{{ stuff.deadline }}</div>
+          <div>장소</div>
+          <div>{{ stuff.place }}</div>
+        </section>
+        <!-- detail-writing : detail-main - item4 -->
+        <section class="canvas detail-writing">
+          <h1 class="d-none">writing</h1>
+          <!-- <p class="detail-paragraph">
+            {{ stuff.content }}
+          </p> -->
+          <p v-html="getContent(stuff.content)" class="detail-paragraph"></p>
+        </section>
+      </div>
+    </main>
 
 		<!-- detail-join : detail - itme2  -->
 
