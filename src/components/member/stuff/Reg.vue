@@ -67,9 +67,7 @@
                             <div class="btn-file">파일업로드</div>
                             <div class="btn-uploaded-files">
                                 파일업로드된 파일들1
-                                <div class="btn-uploaded-files" id="result_file">
-                                    <img class="uploaded-files" :src="imageURL" />
-                                </div>
+                                <img class="uploaded-files" :src="imageURL" />
                             </div>
                             <div class="btn-uploaded-files">파일업로드된 파일들2</div>
                         </label>
@@ -80,10 +78,10 @@
                    <!-- 카테고리 목록 선택 -->
                   
 
-                  <select class="category-box" name="categoryList">
+                  <select class="category-box" name="categoryId">
                       <!-- <option class="d-none" value="null">{{ stuff.categoryId }}</option> -->
                       
-                      <option v-for="c in categoryList" v-bind:selected="c.id == stuff.categoryId" name="categoryId" v-text="c.name"></option>
+                      <option v-for="c in categoryList" v-bind:selected="c.id == stuff.categoryId" :value="c.id" name="categoryId" value="categoryId" v-text="c.name"></option>
 
                       <!-- <option v-for="c in categoryList" v-bind:selected="c.id === stuff.categoryId" name="categoryId" v-text="c.id"></option> -->
                           <!-- <option v-for="c in categoryList" :value="c.id" class="" name="categoryId" v-text="c.name"></option> -->
@@ -218,7 +216,7 @@
                     title: '',
                     place: '',
                     numPeople: '2',
-                    categoryId: '',
+                    categoryId: 0,
                     deadline: '',
                     price: '',
                     url: '',
@@ -231,6 +229,7 @@
                         }
                     ]
                 },
+                url:'',
 
             }
         },
@@ -242,6 +241,7 @@
 
             categorySelectHandler(event){
             this.stuff.categoryId = event.currentTarget.id;
+            console.log(this.stuff.categoryId);
           },
 
             /* 인원 수 증감 이벤트 */
@@ -274,6 +274,8 @@
                 console.log(this.stuff);
 
                 var formData = new FormData(this.$refs.form);
+                //formData.append(this.stuff.categoryId);
+                console.log("fordate:"+formData);
 
                 var requestOptions = {
                     method: 'POST',
@@ -292,9 +294,9 @@
             uploadImage(e){
                 this.file = e.target.files;
                 console.log(this.file);
-                url = URL.createObjectURL(this.file[0]);
-                console.log(url);
-                this.imageURL = url;
+                this.url = URL.createObjectURL(this.file[0]);
+                console.log(this.url);
+                this.imageURL = this.url;
             },
         },
         mounted() {
