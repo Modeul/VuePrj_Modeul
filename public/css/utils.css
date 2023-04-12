@@ -230,6 +230,7 @@
 /* ---- flex ---------------------- */
 .d-fl{
     display: flex;
+    align-items: center;
 }
 
 .d-fl-jf{
