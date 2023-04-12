@@ -4,12 +4,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap");
 
 * {
-	font-family: "Nanum Gothic", sans-serif;
+	/* font-family: "Nanum Gothic", sans-serif; */
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
 /* 사용자용 */
 .canvas {
-	margin: 0 25px;
+	margin: 0 20px;
 	margin-top: 10px;
 }
 
@@ -462,10 +463,10 @@
 	opacity: 1;
 	position: relative;
 	border: 1px solid rgba(230, 228, 228, 0.62);
-	border-radius: 10px;
+	border-radius: 5px;
 
 	overflow: hidden;
-	padding: 0.2rem 0.2rem 0.2rem 0.2rem;
+	padding: 3px 8px;
 	/* 수정 */
 	font-size: 8px;
 	/* flex-basis: 10px; */
@@ -677,9 +678,10 @@ input:focus {
 .list-cl {
 	cursor: pointer;
 }
-
+/* 
 .list-cl:hover {
 	background-color: #f0f2f3;
+<<<<<<< HEAD
 	border-radius: 10px;
 }
 
@@ -716,3 +718,13 @@ input:focus {
 	  background-size: cover;
 	  cursor: pointer;
   }
+=======
+	border-radius: 5px;
+} */
+
+.stuff-list:hover {
+	transition: 0.3s;
+	background-color: #fbfbfb;
+	border-radius: 5px;
+}
+>>>>>>> park
