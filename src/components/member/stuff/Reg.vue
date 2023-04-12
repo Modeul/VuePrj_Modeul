@@ -23,7 +23,7 @@
 
               <div class="category-select">
                   <ul class="select-box-list">
-                      <li v-for="category in categoryList" :key="index">
+                      <li v-for="category in categoryList">
                         <button @click.prevent="categorySelectHandler(category.id)" :id="category.id"  class="select-box" :class="{'categ-eff': categorySelected === category.id }">{{ category.name }}</button>
                       </li>
                   </ul>
@@ -280,7 +280,6 @@
 
             // 파일 업로드시, 이벤트 처리
             upload(){
-                console.log(this.stuff);
                 this.valiError = "";
 
                 // 제목 체크 (글자 수)
@@ -317,11 +316,6 @@
                 if (!this.valiError) {
                 var formData = new FormData(this.$refs.form);
                 
-                // for (let key of formData.keys()) {
-	            // console.log(key);
-                // }
-
-
                 var requestOptions = {
                     method: 'POST',
                     body: formData,
@@ -373,18 +367,9 @@
             },
         },
         mounted() {
-            this.numPeoplePlusHandler();
-            this.numPeopleMinusHandler();
-
             this.loadCategory();
 
         },
-        updated(){
-
-            console.log(this.categoryId);
-              
-        }
-        
     }
 </script>
 
