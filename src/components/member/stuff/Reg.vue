@@ -387,7 +387,6 @@
 
 <style scoped>
 @import "/css/component/member/stuff/component-reg.css";
-@import "/css/component/component.css";
 
 select {
   -webkit-appearance:none; /* 크롬 화살표 없애기 */
