@@ -678,12 +678,7 @@ input:focus {
 .list-cl {
 	cursor: pointer;
 }
-/* 
-.list-cl:hover {
-	background-color: #f0f2f3;
-<<<<<<< HEAD
-	border-radius: 10px;
-}
+
 
 /* 에러메시지 모달 */
 .black-bg {
@@ -718,13 +713,10 @@ input:focus {
 	  background-size: cover;
 	  cursor: pointer;
   }
-=======
-	border-radius: 5px;
-} */
 
 .stuff-list:hover {
 	transition: 0.3s;
 	background-color: #fbfbfb;
 	border-radius: 5px;
 }
->>>>>>> park
+
