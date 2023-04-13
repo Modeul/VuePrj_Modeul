@@ -234,6 +234,8 @@ main {
   right: 19px;
   width: 24px;
   height: 24px;
+  z-index: 9;
+
 }
 .icon-edit2 {
   position: fixed;
@@ -248,6 +250,7 @@ main {
 
   animation: appear .8s cubic-bezier(.77,0,.175,1) forwards;
   box-shadow: 0 25px 40px -20px #3c4a56;
+  z-index: 9;
 }
 
 /* 수정 */
@@ -284,4 +287,14 @@ main {
     opacity: 0;
     transform: translateY(-20px);
   }
+}
+
+.black-bg {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.7);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9;
 }

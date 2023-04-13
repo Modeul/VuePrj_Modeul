@@ -71,6 +71,9 @@ export default {
 	<div class="detail">
 		<header>
 			<router-link to="list" class="icon icon-back">뒤로가기</router-link>
+			<!-- 모달 배경 -->
+			<div v-if="openModal" class="black-bg"></div>
+			<!-- 수정/삭제 모달창 -->
 			<i @click="modalHandler" class="icon-edit"></i>
 			<div v-if="openModal" class="icon-edit2">
 				<div class="d-fl-al fl-dir-col">
@@ -86,7 +89,7 @@ export default {
 		</header>
 
 		<!-- detail - item1  -->
-		<main>
+		<main :class="{'over-h': openModal}">
 			<!-- detail-main : flex-container -->
 			<div class="detail-main">
 				<!-- detail-img : detail-main - item1 -->
