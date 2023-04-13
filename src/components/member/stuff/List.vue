@@ -119,7 +119,7 @@ export default {
 							<div></div>
 
 							<span class="sidebar-padding">
-								<router-link to="/member/stuff/list">홈</router-link>
+								<router-link to="/member/stuff/list">HOME</router-link>
 							</span>
 							<span class="sidebar-padding">
 								<router-link to="/member/stuff/listsearch">검색하기</router-link>
