@@ -1,18 +1,22 @@
 <template>
-  <div class="loader-warp" v-if="loading">
-  <div class="loader"></div>
-</div>
+	<div class="loader-warp" v-if="loading">
+		<div class="loading">
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+	</div>
 </template>
 
 <script>
 export default {
 
-  props: {
-    loading: {
-      type: Boolean,
-      required: true,
-    }
-  }
+	props: {
+		loading: {
+			type: Boolean,
+			required: true,
+		}
+	}
 };
 </script>
 
@@ -24,48 +28,56 @@ export default {
   top: 0;
   left: 0;
   background-color: rgb(255, 255, 255);
-  opacity: 50%;
+  opacity: 80%;
   z-index: 80;
-}
-.loader {
-  width: 8px;
-  height: 40px;
-  border-radius: 4px;
-  display: block;
-  margin: 20px auto;
-  /* position: relative; */
-  background: currentColor;
-  color: #ec1d1d;
-  box-sizing: border-box;
-  animation: animloader 0.3s 0.3s linear infinite alternate;
-
-  position: fixed;
-    top: 50vh;
-    left: 50vw;
-    z-index: 99;
+	display: flex;
 }
 
-.loader::after, .loader::before {
-  content: '';
-  width: 8px;
-  height: 40px;
-  border-radius: 4px;
-  background: currentColor;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 20px;
-  box-sizing: border-box;
-  animation: animloader 0.3s  0.45s  linear infinite alternate;
-}
-.loader::before {
-  left: -20px;
-  animation-delay: 0s;
+.loading {
+	display: flex;
+	justify-content: center;	
+	/* margin-top: 57px; */
+	margin: auto;
+  z-index: 99;
 }
 
-@keyframes animloader {
-  0%   { height: 48px} 
-  100% { height: 4px}
+.loading span {
+	display: inline-block;
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	margin-right: 10px;
+	animation: loading 1s 0s linear infinite;
 }
 
-</style>
+.loading span:nth-child(1) {
+	animation-delay: 0s;
+	background-color: #125ECF;
+}
+
+.loading span:nth-child(2) {
+	animation-delay: 0.2s;
+	background-color: #3E77CD;
+}
+
+.loading span:nth-child(3) {
+	animation-delay: 0.4s;
+	background-color: #8FB9F8;
+	margin-right: 0;
+}
+
+@keyframes loading {
+
+	0%,
+	100% {
+		opacity: 0;
+		transform: scale(0.5);
+	}
+
+	50% {
+		opacity: 1;
+		transform: scale(1);
+	}
+}</style>
+
+
