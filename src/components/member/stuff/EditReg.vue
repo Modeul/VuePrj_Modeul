@@ -81,6 +81,26 @@ export default {
 				.catch(error => console.log('error', error));
 
 		},
+		async update(){
+			// var myHeaders = new Headers();
+			// myHeaders.append("Content-Type", "multipart/form-data");
+
+			var formdata = new FormData(this.$refs.form);
+
+			var requestOptions = {
+				method: 'PUT',
+				// headers: myHeaders,
+				body: formdata,
+				redirect: 'follow'
+			};
+
+			await fetch(`http://localhost:8080/member/stuffs/update/${this.$route.params.id}`, requestOptions)
+			.then(response => response.text())
+			.then(result => console.log(result))
+			.catch(error => console.log('error', error));
+
+			this.$router.replace('/member/stuff/'+this.stuff.id);
+		},
 
 		// 썸네일 조작
 		uploadImage(e) {
@@ -98,7 +118,7 @@ export default {
 					this.stuffView = stuffView;
 					this.stuff = stuffView.stuff;
 					this.category = stuffView.category;
-					this.image = stuffView.image;
+					this.imageList = stuffView.imageList;
 					// console.log(this.stuffView.stuff)
 					console.log(this.stuffView);
 					console.log(this.stuff);
@@ -138,7 +158,7 @@ export default {
 			<!-- =================== reg2 : header ===================== -->
 			<header class="">
 
-				<router-link to="Detail">
+				<router-link :to="'/member/stuff/'+stuff.id">
 					<div class="reg2-back">
 						<a class="icon icon-back">뒤로가기</a>
 					</div>
@@ -151,7 +171,7 @@ export default {
 			<!-- =================== reg2 : main ===================== -->
 			<main class="d-fl-jf m-b">
 
-				<form @submit.prevent="upload" method="post" enctype="multipart/form-data" ref="form">
+				<form @submit.prevent="update" enctype="multipart/form-data" ref="form">
 					<div>
 						<input type="submit" class="reg2-post" value="저장">
 					</div>
@@ -159,19 +179,16 @@ export default {
 					<!-- 이미지 업로드  -->
 					<div class="file-box">
 						<label for="file">
-							<div class="btn-file">파일업로드</div>
-							<div class="btn-uploaded-files">
-								파일업로드된 파일들1
-								<img class="uploaded-files" :src="imageURL" />
+							<div class="btn-file"></div>
+							<div class="btn-uploaded-files" v-for="img in imageList">
+								<img class="uploaded-files" :src="'/images/member/stuff/' + img.name" >
 							</div>
-							<div class="btn-uploaded-files">파일업로드된 파일들2</div>
 						</label>
-
-						<input type="file" class="d-none" id="file" name="imgs" multiple accept="image/*" @change="uploadImage">
+						<!-- <input type="file" class="d-none" id="file" name="imgs" multiple accept="image/*" @change="uploadImage"> -->
 					</div>
 
 					<!-- 카테고리 목록 선택 -->
-					<select class="category-box" name="categoryList" v-model="category.id">
+					<select class="category-box" name="categoryId" v-model="category.id" >
 						<option v-for="c in categoryList" :value="c.id" class="" name="categoryId" v-text="c.name"></option>
 					</select>
 
@@ -196,9 +213,15 @@ export default {
 					<!-- 마감일 설정 -->
 					<div id="btn-date" class="select-box d-fl jf-sb">
 						<label for="datetime-local" class="input-field-txt">마감시간</label>
-						<input class="date-pic" type="datetime-local" data-placeholder="날짜를 선택해주세요." required aria-required="true"
-							name="deadline" className={styles.selectDay} onChange={StartDateValueHandler}
-							v-model="stuff.deadline">
+						<input class="date-pic" 
+						type="datetime-local" 
+						data-placeholder="날짜를 선택해주세요." 
+						required 
+						aria-required="true"
+						name="deadline" 
+						className={styles.selectDay} 
+						onChange={StartDateValueHandler}
+						v-model="stuff.deadline">
 						<!-- value={startDateValue} -->
 						<!--  -->
 					</div>
@@ -219,7 +242,7 @@ export default {
 						<input type="text" class="input-field" name="url" id="url" v-model="stuff.url">
 					</div>
 
-					<div class="select-box select-content d-fl fl-dir-col">
+					<div class="select-box select-content d-f fl-dir-col">
 						<label for="content" class="input-field-txt2">내용</label>
 						<textarea class="input-field input-content" name="content" id="content" cols="30" rows="10"
 							v-model="stuff.content"></textarea>

@@ -17,14 +17,16 @@
 
 
 .select-box-list{
-    margin-top: 105px;
+    margin-top: 80px;
 }
 
-
-.categ-eff:active{
-    border-radius: 10px;
+.categ-eff{
     background-color: #F0F2F3;
 }
+
+/* .categ-eff:active{
+    background-color: #F0F2F3;
+} */
 
 .m-t-button{
     margin-top: 114px;
@@ -57,10 +59,8 @@
     display: block;
     width: 100%;
     height: 100%;
-    position: relative;
-    top: -17px;
-
 }
+
 .select-content{ 
     height: 300px;
 }

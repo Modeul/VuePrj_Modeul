@@ -11,9 +11,9 @@
             <!-- flex start -->
             <div class="main-container">
                 <h1 class="d-none">바디</h1>
-                <p>
-                    <h2 class="title">우리 동네 공구 마켓</h2><br>
-                    <span class="text">
+                <p class="index-txt-wrap">
+                    <h2 class="index-title">우리 동네 공구 마켓</h2><br>
+                    <span class="index-text">
                         모들은 이웃 주민들과<br>
                         물건을 함께 구매하는 마켓이에요<br>
                         로그인을 하여 이용해보세요<br>
@@ -26,7 +26,7 @@
             <div class="link-container">
                 <h1 class="d-none">시작</h1>
                 <div class="btn-1">
-                    <router-link to="/login" class="start-text" >START</router-link>
+                    <router-link to="/login" class="start-text" >START </router-link>
                 </div>
             </div>
             <!-- flex end -->

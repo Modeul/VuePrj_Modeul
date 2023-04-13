@@ -3,7 +3,7 @@
     
     <header>
         <div class="header-container">
-            <h1 class="logo-main logo-moduel logo-size1 m-t-138px">mo_deul</h1>
+            <h1 class="logo-main logo-moduel logo-size1 m-t-90px">mo_deul</h1>
         </div>
     </header>
 
@@ -15,16 +15,16 @@
                     <div class="input-field-1">
                         <label for="uid" class="uid-label">
                             <span class="d-none">uid</span>
-                            <input type="text" id="uid" name="uid" 
-                                class="input-text" placeholder=" 아이디">
                         </label>
+                        <input type="text" id="uid" name="uid" 
+                            class="input-text" placeholder=" 아이디">
                     </div>
                     <div class="input-field-1 m-t-1">
                         <label for="password" class="password-label">
                             <span class="d-none">uid</span>
-                            <input type="text" id="password" name="password" 
-                                class="input-text" placeholder=" 비밀번호">
                         </label>
+                        <input type="password" id="password" name="password" 
+                            class="input-text" placeholder=" 비밀번호">
                     </div>
                     <div>
                         <router-link to="/member/stuff/list"><input class="btn-2" type="submit" value="로그인"></router-link>
@@ -34,13 +34,15 @@
             </div>
         <!-- 아이디찾기 ~ 플렉스 -->
             <div class="find-container">
-                <div>
-                    <a class="find-text" href="아이디찾기페이지">아이디 찾기</a> <span class="find-text2">|</span>
-                    <a class="find-text" href="비밀번호찾기페이지">비밀번호 찾기</a>
+                <div class="find-box">
+                    <span class="find-text" >아이디 찾기</span>
+                    <span class="find-text2">|</span>
+                    <span class="find-text" >비밀번호 찾기</span>
                 </div>
             
-                <div class="m-t-68px">
-                    <router-link to="signup" class="signup-text">회원가입</router-link>
+                <div class="signup-box">
+                    <span class="signup-text2">Modeul이 처음이세요?</span>
+                    <router-link to="signup" class="signup-text"><h2 class="fromCenter">회원가입</h2></router-link>
                 </div>
             </div>
 

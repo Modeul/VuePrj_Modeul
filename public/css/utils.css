@@ -68,6 +68,9 @@
 .m-t-4{ 
     margin-top: 40px;
 } 
+.m-t-13{ 
+    margin-top: 13px;
+} 
 
 /* gps, index, login에서 사용 */
 .m-t-35px{
@@ -86,8 +89,12 @@
 .m-t-77px{
     margin-top: 77px;
 }
-
-
+.m-t-90px{
+    margin-top: 90px;
+}
+.m-t-137px{
+    margin-top: 137px;
+}
 .m-t-138px{
     margin-top: 138px;
 }
@@ -228,8 +235,12 @@
 
 
 /* ---- flex ---------------------- */
+.d-f{
+    display: flex;
+}
 .d-fl{
     display: flex;
+    align-items: center;
 }
 
 .d-fl-jf{
