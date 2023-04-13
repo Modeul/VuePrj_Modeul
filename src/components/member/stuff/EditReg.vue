@@ -118,7 +118,7 @@ export default {
 					this.stuffView = stuffView;
 					this.stuff = stuffView.stuff;
 					this.category = stuffView.category;
-					this.image = stuffView.image;
+					this.imageList = stuffView.imageList;
 					// console.log(this.stuffView.stuff)
 					console.log(this.stuffView);
 					console.log(this.stuff);
@@ -179,15 +179,12 @@ export default {
 					<!-- 이미지 업로드  -->
 					<div class="file-box">
 						<label for="file">
-							<div class="btn-file">파일업로드</div>
-							<div class="btn-uploaded-files">
-								파일업로드된 파일들1
-								<img class="uploaded-files" :src="imageURL" />
+							<div class="btn-file"></div>
+							<div class="btn-uploaded-files" v-for="img in imageList">
+								<img class="uploaded-files" :src="'/images/member/stuff/' + img.name" >
 							</div>
-							<div class="btn-uploaded-files">파일업로드된 파일들2</div>
 						</label>
-
-						<input type="file" class="d-none" id="file" name="imgs" multiple accept="image/*" @change="uploadImage">
+						<!-- <input type="file" class="d-none" id="file" name="imgs" multiple accept="image/*" @change="uploadImage"> -->
 					</div>
 
 					<!-- 카테고리 목록 선택 -->
@@ -245,7 +242,7 @@ export default {
 						<input type="text" class="input-field" name="url" id="url" v-model="stuff.url">
 					</div>
 
-					<div class="select-box select-content d-fl fl-dir-col">
+					<div class="select-box select-content d-f fl-dir-col">
 						<label for="content" class="input-field-txt2">내용</label>
 						<textarea class="input-field input-content" name="content" id="content" cols="30" rows="10"
 							v-model="stuff.content"></textarea>
