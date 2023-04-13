@@ -228,6 +228,9 @@
 
 
 /* ---- flex ---------------------- */
+.d-f{
+    display: flex;
+}
 .d-fl{
     display: flex;
     align-items: center;
