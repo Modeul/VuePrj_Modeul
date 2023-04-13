@@ -10,6 +10,7 @@ export default {
 			list: [],
 			categoryList: [],
 			categoryId:'',
+			listCount:''
 		};
 	},
 	computed: {
@@ -32,6 +33,7 @@ export default {
 				.then(response => response.json())
 				.then(dataList => {
 					this.list = this.formatDateList(dataList.list);
+					this.listCount = dataList.listCount;
 					this.categoryList = dataList.categoryList;
 					console.log(this.list);
 				})
