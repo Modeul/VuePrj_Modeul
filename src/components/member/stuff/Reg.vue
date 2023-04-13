@@ -271,6 +271,8 @@ export default {
 
 		// 파일 업로드시, 이벤트 처리
 		async upload() {
+
+
 			this.valiError = "";
 
 			// 제목 체크 (글자 수)

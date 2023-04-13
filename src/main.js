@@ -2,6 +2,8 @@ import App from './App.vue';
 import {createApp} from 'vue';
 import {createRouter, createWebHashHistory} from 'vue-router';
 
+import Store from './store/store';
+
 import Layout from './components/Layout.vue';
 import Index from './components/Index.vue';
 import Signup from './components/Signup.vue';
@@ -61,5 +63,6 @@ const router = createRouter({
 // 이제는 .js파일이 아니라 뷰엔진(변환기!!)이 들어간 .vue 파일을 이용한다.
 createApp(App)
 .use(router)
+.use(Store)
 .mount("#app");
 

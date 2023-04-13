@@ -19,7 +19,7 @@ export default {
 		categoryHandler(e){
 			this.categoryId = e.target.value;
 			console.log(this.categoryId);
-			fetch(`http://localhost:8080/member/stuffs?c=${this.categoryId}`)
+			fetch(`http://localhost:8080/member/stuffs?p=${this.page}&c=${this.categoryId}`)
 				.then(response => response.json())
 				.then(dataList => {
 					this.list = this.formatDateList(dataList.list);
@@ -27,7 +27,10 @@ export default {
 					console.log(this.list)
 				}).catch(error => console.log('error', error));
 		},
-		addListHandler() {
+		async addListHandler() {
+
+			this.$store.commit('LOADING_STATUS', true); // 해당 함수 true/false 로 어디서나 추가 가능
+
 			this.page++;
 			fetch(`http://localhost:8080/member/stuffs?p=${this.page}&c=${this.categoryId}`)
 				.then(response => response.json())
@@ -36,6 +39,9 @@ export default {
 					this.listCount = dataList.listCount;
 					this.categoryList = dataList.categoryList;
 					console.log(this.list);
+					setTimeout(() => { //settimout은 지워도 됨
+						this.$store.commit('LOADING_STATUS', false);
+					}, 400);  
 				})
 				.catch(error => console.log('error', error));
 		},
