@@ -403,3 +403,7 @@
   
     transform: translateX(-50%) translateY(-50%);
   }
+
+.over-h{
+    overflow: hidden;
+}
