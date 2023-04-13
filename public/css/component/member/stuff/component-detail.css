@@ -362,3 +362,7 @@ main {
   margin-left: 25px;
   cursor: pointer;
 }
+.noImg{
+  height:100%;
+  background-image: url(../../../../images/member/stuff/noimg.svg);
+}

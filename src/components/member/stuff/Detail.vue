@@ -117,7 +117,7 @@ export default {
 				<div class="detail-img">
 					<!-- <img src="../../../../images/member/stuff/chick.jpg" alt="img"> -->
 					<img v-if="image != null" :src="'/images/member/stuff/' + image.name" alt="img" />
-					<div v-else class="noImg" style="height:100px;"></div>
+					<div v-else class="noImg"></div>
 
 
           <!-- image : slideshow -->
