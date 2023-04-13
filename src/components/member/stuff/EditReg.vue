@@ -8,9 +8,9 @@ export default {
 			url: '',
 			imageURL: '',
 			stuffView: '',
-			stuff:'',
-			category:'',
-			image:''
+			stuff: '',
+			category: '',
+			image: ''
 			// stuff:{
 			//     title: this.$route.params.title,
 			//     place: "이촌동",
@@ -81,7 +81,7 @@ export default {
 				.catch(error => console.log('error', error));
 
 		},
-		async update(){
+		async update() {
 			// var myHeaders = new Headers();
 			// myHeaders.append("Content-Type", "multipart/form-data");
 
@@ -95,11 +95,11 @@ export default {
 			};
 
 			await fetch(`http://localhost:8080/member/stuffs/update/${this.$route.params.id}`, requestOptions)
-			.then(response => response.text())
-			.then(result => console.log(result))
-			.catch(error => console.log('error', error));
+				.then(response => response.text())
+				.then(result => console.log(result))
+				.catch(error => console.log('error', error));
 
-			this.$router.replace('/member/stuff/'+this.stuff.id);
+			this.$router.replace('/member/stuff/' + this.stuff.id);
 		},
 
 		// 썸네일 조작
@@ -158,7 +158,7 @@ export default {
 			<!-- =================== reg2 : header ===================== -->
 			<header class="">
 
-				<router-link :to="'/member/stuff/'+stuff.id">
+				<router-link :to="'/member/stuff/' + stuff.id">
 					<div class="reg2-back">
 						<a class="icon icon-back">뒤로가기</a>
 					</div>
@@ -181,14 +181,14 @@ export default {
 						<label for="file">
 							<div class="btn-file"></div>
 							<div class="btn-uploaded-files" v-for="img in imageList">
-								<img class="uploaded-files" :src="'/images/member/stuff/' + img.name" >
+								<img class="uploaded-files" :src="'/images/member/stuff/' + img.name">
 							</div>
 						</label>
 						<!-- <input type="file" class="d-none" id="file" name="imgs" multiple accept="image/*" @change="uploadImage"> -->
 					</div>
 
 					<!-- 카테고리 목록 선택 -->
-					<select class="category-box" name="categoryId" v-model="category.id" >
+					<select class="category-box" name="categoryId" v-model="category.id">
 						<option v-for="c in categoryList" :value="c.id" class="" name="categoryId" v-text="c.name"></option>
 					</select>
 
@@ -213,17 +213,8 @@ export default {
 					<!-- 마감일 설정 -->
 					<div id="btn-date" class="select-box d-fl jf-sb">
 						<label for="datetime-local" class="input-field-txt">마감시간</label>
-						<input class="date-pic" 
-						type="datetime-local" 
-						data-placeholder="날짜를 선택해주세요." 
-						required 
-						aria-required="true"
-						name="deadline" 
-						className={styles.selectDay} 
-						onChange={StartDateValueHandler}
-						v-model="stuff.deadline">
-						<!-- value={startDateValue} -->
-						<!--  -->
+						<input class="date-pic" type="datetime-local" data-placeholder="날짜를 선택해주세요." required aria-required="true"
+							name="deadline" v-model="stuff.deadline">
 					</div>
 
 
