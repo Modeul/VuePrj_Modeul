@@ -1,4 +1,7 @@
 <script>
+import dayjs from 'dayjs';
+import 'dayjs/locale/ko'
+
 export default {
 	data() {
 		return {
@@ -11,7 +14,10 @@ export default {
 			stuff: '',
 			category: '',
 			image: '',
-			imageList: ''
+			imageList: '',
+
+			valiError: "",
+			openModal: false,
 
 		}
 	},
@@ -48,10 +54,7 @@ export default {
 		},
 
 		// 파일 업로드시, 이벤트 처리
-		upload() {
-			console.log(this.stuff);
-
-			var formData = new FormData(this.$refs.form);
+		async upload() {
 
 			var requestOptions = {
 				method: 'POST',
@@ -59,31 +62,79 @@ export default {
 				redirect: 'follow'
 			};
 
-			fetch("http://localhost:8080/member/stuffs/upload", requestOptions)
+			await fetch("http://localhost:8080/member/stuffs/upload", requestOptions)
 				.then(response => response.text())
 				.then(result => console.log(result))
 				.catch(error => console.log('error', error));
-
 		},
+
 		async update() {
 			// var myHeaders = new Headers();
 			// myHeaders.append("Content-Type", "multipart/form-data");
 
-			var formdata = new FormData(this.$refs.form);
+			this.valiError = "";
 
-			var requestOptions = {
-				method: 'PUT',
-				// headers: myHeaders,
-				body: formdata,
-				redirect: 'follow'
-			};
+			// 제목 체크 (글자 수)
+			if (!this.stuff.title) {
+				this.valiError = "제목을 입력하세요.";
+				this.openModal = true;
+				return;
+			} else if (!this.isValidTitle(this.stuff.title)) {
+				this.valiError = "제목을 20자 이하로 입력해주세요.";
+				this.openModal = true;
+				return;
+			}
+			// 날짜 체크 (현재 시점 이전 선택 불가)
+			if (!this.isValidDeadline()) {
+				this.valiError = "마감시간을 확인하세요";
+				this.openModal = true;
+				return;
+			}
+			// 가격 체크
+			if (!this.stuff.price) {
+				this.valiError = "가격을 입력하세요.";
+				this.openModal = true;
+				return;
+			} else if (!this.isValidPrice(this.stuff.price.length)) {
+				this.openModal = true;
+				return;
+			}
+			// 장소, 카테고리, 날짜, 내용 체크
+			if (!this.stuff.place) {
+				this.valiError = "장소를 입력하세요.";
+				this.openModal = true;
+				return;
+			} else if (!this.stuff.categoryId) {
+				this.valiError = "카테고리를 선택하세요.";
+				this.openModal = true;
+				return;
+			} else if (!this.stuff.deadline) {
+				this.valiError = "날짜를 입력하세요.";
+				this.openModal = true;
+				return;
+			} else if (!this.stuff.content) {
+				this.valiError = "내용을 입력하세요.";
+				this.openModal = true;
+				return;
+			}
 
-			await fetch(`http://localhost:8080/member/stuffs/update/${this.$route.params.id}`, requestOptions)
-				.then(response => response.text())
-				.then(result => console.log(result))
-				.catch(error => console.log('error', error));
+			if (!this.valiError) {
+				var formData = new FormData(this.$refs.form);
 
-			this.$router.replace('/member/stuff/' + this.stuff.id);
+				var requestOptions = {
+					method: 'PUT',
+					// headers: myHeaders,
+					body: formdata,
+					redirect: 'follow'
+				};
+
+				await fetch(`http://localhost:8080/member/stuffs/update/${this.$route.params.id}`, requestOptions)
+					.then(response => response.text())
+					.then(result => console.log(result))
+					.catch(error => console.log('error', error));
+
+				this.$router.replace('/member/stuff/' + this.stuff.id);
+			}
 		},
 
 		// 썸네일 조작
@@ -94,8 +145,8 @@ export default {
 			console.log(this.url);
 			this.imageURL = this.url;
 		},
-		load() {
 
+		load() {
 			fetch(`http://localhost:8080/member/stuffs/${this.$route.params.id}`)
 				.then(response => response.json())
 				.then(stuffView => {
@@ -109,7 +160,41 @@ export default {
 					console.log(this.category);
 				})
 				.catch(error => console.log('error', error));
-		}
+		},
+
+		// 제목 체크
+		isValidTitle() {
+			if (this.stuff.title.length > 20) {
+				return false;
+			}
+			return true;
+		},
+		// 가격 체크
+		isValidPrice() {
+			// 가격제한
+			if (this.stuff.price.length > 8) {
+				this.valiError = "너무 비싸요.";
+				return false;
+			}
+			// 가격은 숫자만 입력 가능
+			const priceRegex = /^[0-9]+$/.test(this.stuff.price);
+			if (!priceRegex) {
+				this.valiError = "가격은 숫자만 입력 가능합니다.";
+				return false;
+			}
+			// 모든 검증을 통과한 경우
+			return true;
+		},
+		isValidDeadline() {
+			const deadlineObj = new dayjs(this.stuff.deadline)
+			if(deadlineObj.diff(dayjs(), 'minute') <= 0)
+				return false;
+			else
+				return true;
+		},
+		toggleModal() {
+			this.openModal = !this.openModal;
+		},
 	},
 	mounted() {
 		this.numPeoplePlusHandler();
@@ -117,13 +202,12 @@ export default {
 
 		this.loadCategory();
 		this.load();
-		console.log(this.stuff);
 
+		// console.log(this.stuff);
 	},
 	updated() {
 		//console.log(this.categoryList.id);
 	}
-
 }
 </script>
 
@@ -169,6 +253,13 @@ export default {
 							</div>
 						</label>
 						<!-- <input type="file" class="d-none" id="file" name="imgs" multiple accept="image/*" @change="uploadImage"> -->
+					</div>
+
+					<!-- 에러메시지 모달창 -->
+					<div v-if="openModal == true" class="black-bg">
+						<div class="error-box">{{ valiError }}
+							<div @click="toggleModal" class="error-close"></div>
+						</div>
 					</div>
 
 					<!-- 카테고리 목록 선택 -->
