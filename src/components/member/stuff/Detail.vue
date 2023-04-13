@@ -78,7 +78,7 @@ export default {
 			<div v-if="openModal" class="black-bg">
 				<div class="icon-edit2">
 					<div class="d-fl-al fl-dir-col">
-						<router-link :to="'./'+stuff.id+'/edit/'">
+						<router-link :to="'./edit/'+stuff.id">
 							<div class="icon-edit3"></div>
 						</router-link>
 						<div 
