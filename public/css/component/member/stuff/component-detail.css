@@ -235,6 +235,7 @@ main {
   width: 24px;
   height: 24px;
   z-index: 10;
+  cursor: pointer;
 
 }
 .icon-edit2 {
@@ -309,8 +310,10 @@ main {
   display: flex;
   align-items: center;
   flex-direction: column;
-  border: solid 1px;
-  border-color: #000000;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
 }
 .delete-box-1{
   width: 135px;
@@ -336,27 +339,25 @@ main {
   height: 26px;
   background: #FFFFFF;
   border-radius: 5px;
-  border-color: #E01616;
+  border:0.5px solid #E01616;
   color: #E01616;
   font-weight: 400;
   font-size: 10px;
   text-align: center;
   line-height: 26px;
-
-  background-color: #e0161661;
+  cursor: pointer;
 }
 .delete-box-4{
   width: 65px;
   height: 26px;
   background: #FFFFFF;
   border-radius: 5px;
-  border-color: #6A6A6A;
+  border:0.5px solid #6A6A6A;
   color: #6A6A6A;
   font-weight: 400;
   font-size: 10px;
   text-align: center;
   line-height: 26px;
   margin-left: 25px;
-
-  background-color: rgba(0, 0, 255, 0.219);
+  cursor: pointer;
 }

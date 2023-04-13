@@ -313,15 +313,16 @@ input[id="menuicon"]:checked+label span:nth-child(3) {
 
 /* -----사이드바--- */
 div[class="sidebar"] {
-	width: 200px;
+	width: 210px;
 	height: 100%;
 	background: #fff;
 	position: fixed;
 	top: 0;
-	right: -200px;
+	right: -220px;
 	z-index: 1;
 	transition: all 0.35s;
 	text-indent: 0;
+	box-shadow: 0 3px 10px rgb(0 0 0 / 20%);
 }
 
 input[id="menuicon"]:checked+label+div {

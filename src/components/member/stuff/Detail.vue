@@ -6,18 +6,20 @@ export default {
 	data() {
 		return {
 			openModal: false,
+			openModal2: false,
 			stuff: {},
 			category: {},
 			image: {},
 			// content: ''
-			closeCss: false
 		};
 	},
 	methods: {
 		/* 모달 이벤트 */
 		modalHandler() {
 			this.openModal = !this.openModal;
-			this.closeCss = !this.closeCss;
+		},
+		modalHandler2() {
+			this.openModal2 = !this.openModal2;
 		},
 		imageZoomInHandler() {
 			console.log("zoom-in");
@@ -75,33 +77,38 @@ export default {
 			<!-- 수정/삭제 모달 버튼 -->
 			<i @click="modalHandler" class="icon-edit"></i>
 			<!-- 모달 배경 -->
-			<div v-if="openModal" class="black-bg">
+			<div v-if="openModal" >
 				<div class="icon-edit2">
 					<div class="d-fl-al fl-dir-col">
 						<router-link :to="'./edit/'+stuff.id">
 							<div class="icon-edit3"></div>
 						</router-link>
 						<div 
-							@click="deleteStuff"
+							@click="modalHandler2"
 							class="icon-edit4">
+
 						</div>
 					</div>
 				</div>
-			</div>
-			<!-- 취소 확인 모달 -->
-			<div class="delete-box">
-				<div class="delete-box-1">정말로 삭제하시겠습니까?</div>
-				<div class="delete-box-2">
-					<div class="delete-box-3">삭제</div>
-					<div class="delete-box-4">취소</div>
+				<!-- 취소 확인 모달 -->
+				<div v-if="openModal2" class="black-bg">
+					<div  class="delete-box">
+						<div class="delete-box-1">정말로 삭제하시겠습니까?</div>
+						<div class="delete-box-2">
+							<div @click="deleteStuff" class="delete-box-3">삭제</div>
+							<div @click="modalHandler2" class="delete-box-4">취소</div>
+						</div>
+					</div>
 				</div>
+				
 			</div>
+			
 
 
 		</header>
 
 		<!-- detail - item1  -->
-		<main :class="{'over-h': openModal}">
+		<main >
 			<!-- detail-main : flex-container -->
 			<div class="detail-main">
 				<!-- detail-img : detail-main - item1 -->
