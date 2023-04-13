@@ -8,11 +8,11 @@ export default {
 		return {
 			page: '',
 			list: [],
-			categoryList: [],
 			queryList:[],
 			categoryId:'',
 			query:'',
 			queryisVal:true,
+			// listCount: ''
 		}
 	},
 	methods: {
@@ -34,9 +34,7 @@ export default {
 			fetch(`http://localhost:8080/member/stuffs?q=${this.query}&p=${this.page}&c=${this.categoryId}`)
 				.then(response => response.json())
 				.then(dataList => {
-					this.list = this.formatDateList(dataList.list);
-					this.queryList = this.formatDateList(dataList.queryList);
-					this.categoryList = dataList.categoryList;
+					this.list = this.formatDateList(dataList.queryList);
 					console.log(this.list);
 				})
 				.catch(error => console.log('error', error));
@@ -151,14 +149,12 @@ export default {
 			</div>
 		
 
-			<!-- <button class="btn-next more-list" @click="addListHandler">더보기</button> -->
+			<button class="btn-next more-list" @click="addListHandler"> 더보기 </button>
 			<router-link to="/member/stuff/reg">
 				<div class="reg-stuff">
 				</div>
 			</router-link>
 		</main>
-
-
     </section>
 </template>
 
