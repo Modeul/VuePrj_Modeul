@@ -18,9 +18,12 @@ export default {
 		// imgErrorHandler(e) {
       // e.target.src = '/images/member/stuff/member.png';
     // },
-		addListHandler() {
+		async addListHandler() {
+
+			this.$store.commit('LOADING_STATUS', true); // 해당 함수 true/false 로 어디서나 추가 가능
+
 			this.page++;
-			fetch(`http://localhost:8080/member/stuffs?p=${this.page}`)
+			await fetch(`http://localhost:8080/member/stuffs?p=${this.page}`)
 				.then(response => response.json())
 				.then(dataList => {
 					this.list = this.formatDateList(dataList.list);
@@ -30,6 +33,9 @@ export default {
 
 					console.log(this.list);
 					// console.log(this.categoryList);
+					setTimeout(() => { //settimout은 지워도 됨
+						this.$store.commit('LOADING_STATUS', false);
+					}, 400);  
 				})
 				.catch(error => console.log('error', error));
 		},
