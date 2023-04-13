@@ -321,7 +321,6 @@ div[class="sidebar"] {
 	right: -200px;
 	z-index: 1;
 	transition: all 0.35s;
-	opacity: 0.9;
 	text-indent: 0;
 }
 
@@ -330,7 +329,8 @@ input[id="menuicon"]:checked+label+div {
 }
 
 .welcome {
-	margin-top: 100px;
+	height: 60px;
+	margin-top: 90px;
     margin-left: 20px;
     font-size: 1.1rem;
     line-height: 26px;
@@ -341,7 +341,7 @@ input[id="menuicon"]:checked+label+div {
 	display: flex;
     flex-direction: column;
     width: 170px;
-    margin: 45px 0 0 20px;
+    margin: 38px 0 0 20px;
     align-items: baseline;
 }
 

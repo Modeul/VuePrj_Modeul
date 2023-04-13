@@ -23,7 +23,7 @@
                         <label for="password" class="password-label">
                             <span class="d-none">uid</span>
                         </label>
-                        <input type="text" id="password" name="password" 
+                        <input type="password" id="password" name="password" 
                             class="input-text" placeholder=" 비밀번호">
                     </div>
                     <div>
