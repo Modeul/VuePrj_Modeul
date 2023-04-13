@@ -9,8 +9,6 @@
         <div class="d-fl-jf">
           <h1 class="logo-main logo-moduel logo-size2 m-t-44px">mo_deul</h1>
         </div>
-        <br>
-        <br>
       </section>
     </header>
     <!-- ----------------------------------------------------------- -->
