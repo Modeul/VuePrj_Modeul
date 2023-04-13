@@ -17,12 +17,14 @@ export default {
 	},
 	methods: {
 		categoryHandler(e){
+			this.page=1;
 			this.categoryId = e.target.value;
 			console.log(this.categoryId);
 			fetch(`http://localhost:8080/member/stuffs?p=${this.page}&c=${this.categoryId}`)
 				.then(response => response.json())
 				.then(dataList => {
 					this.list = this.formatDateList(dataList.list);
+					this.listCount = dataList.listCount;
 					this.categoryList = dataList.categoryList;
 					console.log(this.list)
 				}).catch(error => console.log('error', error));
