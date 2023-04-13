@@ -71,21 +71,33 @@ export default {
 	<div class="detail">
 		<header>
 			<router-link to="list" class="icon icon-back">뒤로가기</router-link>
-			<!-- 모달 배경 -->
-			<div v-if="openModal" class="black-bg"></div>
-			<!-- 수정/삭제 모달창 -->
+			
+			<!-- 수정/삭제 모달 버튼 -->
 			<i @click="modalHandler" class="icon-edit"></i>
-			<div v-if="openModal" class="icon-edit2">
-				<div class="d-fl-al fl-dir-col">
-					<router-link :to="'./'+stuff.id+'/edit/'">
-						<div class="icon-edit3"></div>
-					</router-link>
-					<div 
-						@click="deleteStuff"
-						class="icon-edit4">
+			<!-- 모달 배경 -->
+			<div v-if="openModal" class="black-bg">
+				<div class="icon-edit2">
+					<div class="d-fl-al fl-dir-col">
+						<router-link :to="'./'+stuff.id+'/edit/'">
+							<div class="icon-edit3"></div>
+						</router-link>
+						<div 
+							@click="deleteStuff"
+							class="icon-edit4">
+						</div>
 					</div>
 				</div>
 			</div>
+			<!-- 취소 확인 모달 -->
+			<div class="delete-box">
+				<div class="delete-box-1">정말로 삭제하시겠습니까?</div>
+				<div class="delete-box-2">
+					<div class="delete-box-3">삭제</div>
+					<div class="delete-box-4">취소</div>
+				</div>
+			</div>
+
+
 		</header>
 
 		<!-- detail - item1  -->
