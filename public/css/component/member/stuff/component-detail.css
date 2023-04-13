@@ -261,7 +261,7 @@ main {
   width: 60px;
   height: 23px;
   border-radius: 5px;
-
+  cursor: pointer;
 }
 
 @keyframes appear {
