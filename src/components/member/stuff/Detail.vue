@@ -74,7 +74,7 @@ export default {
 			<i @click="modalHandler" class="icon-edit"></i>
 			<div v-if="openModal" class="icon-edit2">
 				<div class="d-fl-al fl-dir-col">
-					<router-link :to="'./'+stuff.id+'/edit/'">
+					<router-link :to="'./edit/'+stuff.id">
 						<div class="icon-edit3"></div>
 					</router-link>
 					<div 
