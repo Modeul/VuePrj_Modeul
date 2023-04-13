@@ -50,9 +50,9 @@ label {
 /* ---- input-field ---------------------- */
 .input-field-1{
   width: 236px;
-  height: 48px;
+  height: 43px;
   background: #FFFFFF;
-  border: 1px solid #253232;
+  border: 1px solid #888888;
   border-radius: 10px;
 }
 .input-field-2{

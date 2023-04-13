@@ -27,7 +27,7 @@
     cursor: pointer;
 }
 
-/* -------- reg2 파일 업로드 버튼 -------- */
+/* -------- reg2 파일 업로드 버튼 ------- - */
 .btn-file{
     border: none;
     border-radius: 10px;    
@@ -109,14 +109,14 @@
 .btn-2{
     width: 236px;
     height: 35px;
-    background: #253232;
+    background: #222222;
     border-radius: 7px;
-    margin-top: 15px;
+    margin-top: 13px;
 
     font-weight: 700;
-    font-size: 18px;
-    line-height: 23px;
-    border: solid 1px #253232;
+    font-size: 14px;
+    line-height: 13.86px;
+    border: none;
     color: #F1F2F2;
 }
 /* sign-up */
@@ -257,7 +257,7 @@
   }
   /*  */
 
-  .signup-text::after {
+  /* .signup-text::after {
     content: '\e5cc';
     font-family: 'Material Icons';
 
@@ -268,4 +268,4 @@
     position: relative;
     top: 3px;
     color: #7a7a7a;
-}
+} */
