@@ -30,18 +30,19 @@ export default {
 		async addListHandler() {
 
 			this.$store.commit('LOADING_STATUS', true); // 해당 함수 true/false 로 어디서나 추가 가능
+			// setTimeout(() => { this.$store.commit('LOADING_STATUS', false); }, 400); //settimout은 지워도 됨
 
 			this.page++;
-			fetch(`http://localhost:8080/member/stuffs?p=${this.page}&c=${this.categoryId}`)
+			await fetch(`http://localhost:8080/member/stuffs?p=${this.page}&c=${this.categoryId}`)
 				.then(response => response.json())
 				.then(dataList => {
 					this.list = this.formatDateList(dataList.list);
 					this.listCount = dataList.listCount;
 					this.categoryList = dataList.categoryList;
 					console.log(this.list);
-					setTimeout(() => { //settimout은 지워도 됨
+					setTimeout(() => { 
 						this.$store.commit('LOADING_STATUS', false);
-					}, 400);  
+				}, 400); //settimout은 지워도 됨
 				})
 				.catch(error => console.log('error', error));
 		},

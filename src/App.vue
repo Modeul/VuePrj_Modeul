@@ -10,6 +10,6 @@
 <template>
     <!-- <span v-text="test"></span> -->
     <router-view></router-view>
-    <Loader :loading="this.$store.state.loadingstatus"></Loader>
+		<Loader :loading="this.$store.state.loadingStatus"></Loader>
     
 </template>
