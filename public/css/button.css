@@ -99,11 +99,21 @@
     width: 150px;
     height: 40px;
     border-radius: 10px;
-    padding-top: 11px;
     text-align: center;
-    background-color: #000000;
     cursor: pointer;
+    animation: slide1 1s ease-in-out infinite;
+    margin-left: 9px;
+    color: #000;
+}
+@keyframes slide1 {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
 
+  50% {
+    transform: translate(10px, 0);
+  }
 }
 /* login */
 .btn-2{

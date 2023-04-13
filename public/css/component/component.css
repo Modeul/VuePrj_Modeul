@@ -16,6 +16,13 @@
     text-align: center;
     color: #222222;  
   }
+  .index-title{
+    font-weight: 500;
+    font-size: 1.2rem;
+    line-height: 26px;
+    text-align: center;
+    color: #222222;
+  }
 .title-2{
   font-size: 45px;
   text-align: center;
@@ -39,7 +46,13 @@
   text-align: center;
   color: #424242;
 }
-
+.index-text{
+    font-weight: 300;
+    font-size: 1rem;
+    line-height: 30px;
+    text-align: center;
+    color: #808080;
+}
 /* 사용자 페이지 */
 label {
   padding-left: 30px;
