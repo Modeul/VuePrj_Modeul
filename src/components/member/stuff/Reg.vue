@@ -199,7 +199,7 @@
                         <input type="text" class="input-field" name="url" id="url" v-model="stuff.url">
                     </div>
     
-                    <div class="select-box select-content d-fl fl-dir-col">
+                    <div class="select-box select-content d-f fl-dir-col">
                         <label for="content" class="input-field-txt2">내용</label>
                         <textarea class="input-field input-content" name="content" id="content" cols="30" rows="10" v-model="stuff.content"></textarea>
                     </div>
