@@ -215,7 +215,7 @@ export default {
 				title: '',
 				place: '',
 				numPeople: '2',
-				categoryId: 0,
+				categoryId: 1,
 				deadline: '',
 				price: '',
 				url: '',
