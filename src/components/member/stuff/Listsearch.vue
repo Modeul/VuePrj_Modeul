@@ -9,26 +9,52 @@ export default {
 			page: '',
 			list: [],
 			categoryList: [],
-		};
+			queryList:[],
+			categoryId:'',
+			query:'',
+			queryisVal:true,
+		}
 	},
 	methods: {
+        searchInput(e){
+			this.page = 1;
+			e.preventDefault();
+            this.query = e.target.value;
+			this.queryisVal = false;
+			console.log(this.query);
+			fetch(`http://localhost:8080/member/stuffs?p=${this.page}&q=${this.query}`)
+				.then(response => response.json())
+				.then(dataList => {
+					this.queryList = this.formatDateList(dataList.queryList);
+					console.log(this.queryList);
+				}).catch(error => console.log('error', error));
+        },
+		// categoryHandler(e){
+		// 	this.categoryId = e.target.value;
+		// 	console.log(this.categoryId);
+		// 	fetch(`http://localhost:8080/member/stuffs?c=${this.categoryId}`)
+		// 		.then(response => response.json())
+		// 		.then(dataList => {
+		// 			this.list = this.formatDateList(dataList.list);
+		// 			this.categoryList = dataList.categoryList;
+		// 		}).catch(error => console.log('error', error));
+		// },
 		addListHandler() {
 			this.page++;
-			fetch(`http://localhost:8080/member/stuffs?p=${this.page}`)
+			fetch(`http://localhost:8080/member/stuffs?q=${this.query}&p=${this.page}&c=${this.categoryId}`)
 				.then(response => response.json())
 				.then(dataList => {
 					this.list = this.formatDateList(dataList.list);
+					this.queryList = this.formatDateList(dataList.queryList);
 					this.categoryList = dataList.categoryList;
-
 					console.log(this.list);
-					// console.log(this.categoryList);
 				})
 				.catch(error => console.log('error', error));
 		},
 		formatDateList(list) {
 			if(list.length == 0)
 				return;
-			let resultList = []
+			let resultList = [];
 			for (let item of list) {
 				if(item.deadline == null)
 					continue;
@@ -38,16 +64,17 @@ export default {
 				resultList.push(item);
 			}
 			return resultList;
-		}
+		},
 	},
 	mounted() {
 		this.page = 0;
 		this.addListHandler();
-
 	}
 }
 </script>
-
+<style scoped>
+@import url(/css/component/member/stuff/component-list.css);
+</style>
 <template>
     <section class="canvas b-rad-2">
 
@@ -58,72 +85,74 @@ export default {
                 </div>
 
                 <div class="search-container">
-                    <form action="" class="d-fl d-b-none search-form" method="get">
+                    <div class="d-fl d-b-none search-form">
                         <h1 class="icon search-dodbogi m-l-6px">돋보기</h1>
-                        <input type="search" id="search-bar" class="search-input m-l-6px"  placeholder="검색어 입력">
-                    </form>
+                        <input id="search-bar" class="search-input m-l-6px" name="q" @keyup.enter="searchInput" placeholder="검색어 입력">
+                    </div>
                 </div>
         </header>
 
     <!-- 검색창 들어가는 부분 -->
 
-        <nav>
-            <form action="./list-search.html" method="get" class="header-categ-box">
-                <div> 
-                    <button class="header-categ" name="c" value="1">전체</button>
-                </div>
-                    
-                <div>
-                    <button class="header-categ" name="c" value="1">일반상품</button>
-                    <button class="header-categ" name="c" value="2">딜리버리 푸드</button>
-                    <button class="header-categ" name="c" value="3">대형마트 대량 물품</button>
-                </div>
-            </form>
-        </nav>
+       <!-- <nav>
+			<div class="header-categ-box" v-if="queryisVal">
+				<div>
+					<button class="header-categ" @click="categoryHandler" name="c">전체</button>
+				</div>
+				
+				<div v-for="c in categoryList">
+					<button class="header-categ" @click="categoryHandler" :value="c.id">{{ c.name }}</button>
+				</div>
+			</div>
+		</nav> -->
 
-        <main class="result-list d-none">
-            <div class="d-gr li-gr list-cl" onclick="location.href='detail.html'">
-                <div class="li-pic b-rad-1">사진</div>
-                <div class="li-categ header-categ li-header-categ">딜리버리 푸드</div>
-                <div class="li-heart icon icon-heart">
-                    찬하트
-                </div>
-                <div class="li-subj">서강대 앞 교촌치킨 시켜드실 분</div>
-                <div class="li-member">2/5</div>
-                <div class="li-date">2월 3일 금 18시까지</div>
-            </div>
-            <div>
-                <h1 class="icon icon-line">선 긋기</h1>
-            </div>
+       <main>
+		<div v-if="queryisVal">
+			<div class="stuff-list" v-for="stuff in list">
+				<router-link :to="'./' + stuff.id">
+					<div class="d-gr li-gr m-t-13px list-cl">
+						<div class="li-pic b-rad-1">
+							<img class="listview-image" :src="'/images/member/stuff/' + stuff.imageName" alt="img">
+						</div>
+						<div class="li-categ header-categ li-header-categ">{{ stuff.categoryName }}</div>
+						<div class="li-subj">{{ stuff.title }}</div>
+						<div class="li-member"> 1 / {{ stuff.numPeople }}</div>
+						<div class="li-date">{{ stuff.deadline }}</div>
+					</div>
+					<div>
+						<h1 class="icon icon-line">선 긋기</h1>
+					</div>
+				</router-link>
+			</div>
+		</div>
+		<div v-if="!queryisVal">
+			<div class="stuff-list" v-for="stuff in queryList">
+				<router-link :to="'./' + stuff.id">
+					<div class="d-gr li-gr m-t-13px list-cl">
+						<!-- 나중에 전체를 div로 묶어서 main으로 크게 묶기 -->
+						<div class="li-pic b-rad-1">
+							<img class="listview-image" :src="'/images/member/stuff/' + stuff.imageName" alt="img">
+						</div>
+						<div class="li-categ header-categ li-header-categ">{{ stuff.categoryName }}</div>
+						<div class="li-subj">{{ stuff.title }}</div>
+						<div class="li-member"> 1 / {{ stuff.numPeople }}</div>
+						<div class="li-date">{{ stuff.deadline }}</div>
+					</div>
+					<div>
+						<h1 class="icon icon-line">선 긋기</h1>
+					</div>
+				</router-link>
+			</div>
+		</div>
 
-            <div class="d-gr li-gr list-cl" onclick="location.href='detail.html'">
-                <div class="li-pic b-rad-1">사진</div>
-                <div class="li-categ header-categ li-header-categ">딜리버리 푸드</div>
-                <div class="li-heart icon icon-heart">
-                    찬하트
-                </div>
-                <div class="li-subj">서강대 앞 교촌치킨 시켜드실 분</div>
-                <div class="li-member">2/5</div>
-                <div class="li-date">2월 3일 금 18시까지</div>
-            </div>
-            <div>
-                <h1 class="icon icon-line">선 긋기</h1>
-            </div>
-            
-            <div class="d-gr li-gr list-cl" onclick="location.href='detail.html'">
-                <div class="li-pic b-rad-1">사진</div>
-                <div class="li-categ header-categ li-header-categ">딜리버리 푸드</div>
-                <div class="li-heart icon icon-heart">
-                    찬하트
-                </div>
-                <div class="li-subj">서강대 앞 교촌치킨 시켜드실 분</div>
-                <div class="li-member">2/5</div>
-                <div class="li-date">2월 3일 금 18시까지</div>
-            </div>
-            <div>
-                <h1 class="icon icon-line">선 긋기</h1>
-            </div>
-        </main>
+
+			<button class="btn-next more-list" @click="addListHandler">더보기</button>
+			<router-link to="/member/stuff/reg">
+				<div class="reg-stuff">
+					+
+				</div>
+			</router-link>
+		</main>
 
 
     </section>
@@ -132,4 +161,18 @@ export default {
 
 <style scoped>
     @import "/css/component/member/stuff/component-list-search.css";
+	
+.reg-stuff {
+	width: 30px;
+	height: 30px;
+	background-color: #63A0C2;
+	color: #fff;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 30px;
+	position: fixed;
+	right: 30px;
+	bottom: 30px;
+	cursor: pointer;
+}
 </style>

@@ -9,34 +9,38 @@ export default {
 			page: '',
 			list: [],
 			categoryList: [],
-			listCount: 0
+			categoryId:'',
 		};
 	},
 	computed: {
 	},
 	methods: {
-		// imgErrorHandler(e) {
-      // e.target.src = '/images/member/stuff/member.png';
-    // },
-		addListHandler() {
-			this.page++;
-			fetch(`http://localhost:8080/member/stuffs?p=${this.page}`)
+		categoryHandler(e){
+			this.categoryId = e.target.value;
+			console.log(this.categoryId);
+			fetch(`http://localhost:8080/member/stuffs?c=${this.categoryId}`)
 				.then(response => response.json())
 				.then(dataList => {
 					this.list = this.formatDateList(dataList.list);
-					this.listCount = dataList.listCount;
 					this.categoryList = dataList.categoryList;
-					console.log("리스트" + this.list);
-
+					console.log(this.list)
+				}).catch(error => console.log('error', error));
+		},
+		addListHandler() {
+			this.page++;
+			fetch(`http://localhost:8080/member/stuffs?p=${this.page}&c=${this.categoryId}`)
+				.then(response => response.json())
+				.then(dataList => {
+					this.list = this.formatDateList(dataList.list);
+					this.categoryList = dataList.categoryList;
 					console.log(this.list);
-					// console.log(this.categoryList);
 				})
 				.catch(error => console.log('error', error));
 		},
 		formatDateList(list) {
 			if (list.length == 0)
 				return;
-			let resultList = []
+			let resultList = [];
 			for (let item of list) {
 				if (item.deadline == null)
 					continue;
@@ -137,15 +141,15 @@ export default {
 		</header>
 
 		<nav>
-			<form action="list.html" method="get" class="header-categ-box">
+			<div class="header-categ-box">
 				<div>
-					<button class="header-categ" name="c">전체</button>
+					<button class="header-categ" @click="categoryHandler" name="c">전체</button>
 				</div>
 
 				<div v-for="c in categoryList">
-					<button class="header-categ" name="c" :value="c.id">{{ c.name }}</button>
+					<button class="header-categ" @click="categoryHandler" name="c" :value="c.id">{{ c.name }}</button>
 				</div>
-			</form>
+			</div>
 		</nav>
 
 		<!-- 나중에 onclick 이벤트 하트 부분만 빼고 넣기 -->
