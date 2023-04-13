@@ -78,9 +78,11 @@ export default {
 			if (!this.stuff.title) {
 				this.valiError = "제목을 입력하세요.";
 				this.openModal = true;
+				return;
 			} else if (!this.isValidTitle(this.stuff.title)) {
 				this.valiError = "제목을 20자 이하로 입력해주세요.";
 				this.openModal = true;
+				return;
 			}
 			// 날짜 체크 (현재 시점 이전 선택 불가)
 			if (!this.isValidDeadline()) {
@@ -92,22 +94,28 @@ export default {
 			if (!this.stuff.price) {
 				this.valiError = "가격을 입력하세요.";
 				this.openModal = true;
+				return;
 			} else if (!this.isValidPrice(this.stuff.price.length)) {
 				this.openModal = true;
+				return;
 			}
 			// 장소, 카테고리, 날짜, 내용 체크
 			if (!this.stuff.place) {
 				this.valiError = "장소를 입력하세요.";
 				this.openModal = true;
+				return;
 			} else if (!this.stuff.categoryId) {
 				this.valiError = "카테고리를 선택하세요.";
 				this.openModal = true;
+				return;
 			} else if (!this.stuff.deadline) {
 				this.valiError = "날짜를 입력하세요.";
 				this.openModal = true;
+				return;
 			} else if (!this.stuff.content) {
 				this.valiError = "내용을 입력하세요.";
 				this.openModal = true;
+				return;
 			}
 
 			if (!this.valiError) {
