@@ -279,7 +279,7 @@
             },
 
             // 파일 업로드시, 이벤트 처리
-            upload(){
+            async upload(){
                 this.valiError = "";
 
                 // 제목 체크 (글자 수)
@@ -322,12 +322,12 @@
                     redirect: 'follow'
                 };
 
-                fetch("http://localhost:8080/member/stuffs/upload", requestOptions)
+                await fetch("http://localhost:8080/member/stuffs/upload", requestOptions)
                 .then(response => response.text())
                 .then(result => console.log(result))
                 .catch(error => console.log('error', error));
 
-                this.$router.push('/member/stuff/list');
+                this.$router.push('/member/stuff/list')
             }
             },
 
