@@ -119,12 +119,12 @@ export default {
 			}
 
 			if (!this.valiError) {
-				var formData = new FormData(this.$refs.form);
+			var formData = new FormData(this.$refs.form);
 
 				var requestOptions = {
 					method: 'PUT',
 					// headers: myHeaders,
-					body: formdata,
+					body: formData,
 					redirect: 'follow'
 				};
 
