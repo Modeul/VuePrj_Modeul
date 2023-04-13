@@ -66,12 +66,14 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+	@import "/css/component/member/stuff/component-detail.css";
+</style>
 
 <template>
 	<!-- detail : flex-container -->
 	<div class="detail">
-		<header>
+		<header class="detail-header">
 			<router-link to="list" class="icon icon-back">뒤로가기</router-link>
 			
 			<!-- 수정/삭제 모달 버튼 -->
@@ -192,6 +194,3 @@ export default {
   </div>
 </template>
 
-<style scoped>
-@import "/css/component/member/stuff/component-detail.css";
-</style>
