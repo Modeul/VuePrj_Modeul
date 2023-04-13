@@ -379,11 +379,15 @@ input[id="menuicon"]:checked+label+div {
 	color: #fff;
 	border-radius: 50%;
 	text-align: center;
-	line-height: 2;
+	line-height: 30px;
 	position: fixed;
 	right: 30px;
 	bottom: 30px;
 	cursor: pointer;
+}
+.reg-stuff::before{
+	content: '\e145';
+	font-family: 'Material Icons';
 }
 .reg-stuff:hover{
 	transform: rotate(180deg);
