@@ -125,60 +125,6 @@
 						<input type="text" class="input-field" name="price" id="price" v-model="stuff.price">
 					</div>
 
-					<!-- required 속성: 해당 필드가 기재되었을 때만 submit 가능. -->
-
-
-					<!-- 복구용 코드(인원수) -->
-					<!-- <div class="select-box">
-                        <label for="people-count" class="input-field-txt">인원수</label>
-                        <input type="text" class="input-field" id="people-count">
-                    </div> -->
-
-					<!-- 복구용 코드(날짜선택) -->
-					<!-- <label for="date" class="input-field-txt">날짜</label>
-                        <input type="datetime-local" id="date" class="input-field2" name="date-start"
-                        value="2023-02-26"
-                        min="2020-01-01" max="2025-12-31"> -->
-
-					<!-- 모달 추가 -->
-					<!-- 모달 html -->
-					<!-- <div class="select-box btn-open-popup">모달 띄우기</div>
-                    <div class="modal">
-                        <div class="modal_body">
-                            날짜선택
-                            <input type="datetime-local" id="date" class="input-field2" name="date-start"
-                            value="2023-02-26"
-                            min="2020-01-01" max="2025-12-31">
-                        </div>
-                      </div> -->
-					<!-- 모달 JS -->
-					<!-- <script>
-                        const body = document.querySelector('body');
-                        const modal = document.querySelector('.modal');
-                        const btnOpenPopup = document.querySelector('.btn-open-popup');
-                        //classList 사용은 공백으로 구분된 문자열인 element.className을 통해 
-                        //엘리먼트의 클래스 목록에 접근하는 방식을 대체하는 간편한 방법이다.
-                        //Element.className : 특정 엘리먼트의 클래스 속성의 값을 가져오거나 설정할 수 있다.
-                        btnOpenPopup.addEventListener('click', () => {
-                          modal.classList.toggle('show'); //하나의 인수만 있을 때: 클래스 값을 토글링한다. 즉, 클래스가 존재한다면 제거하고 false를 반환하며, 
-                                                          //존재하지 않으면 클래스를 추가하고 true를 반환한다.
-                          
-                          if (modal.classList.contains('show')) { // 지정한 클래스 값이 엘리먼트의 class 속성에 존재하는지 확인한다.
-                            body.style.overflow = 'hidden'; // 'show'가 존재한다면 body에서 스크롤 불가.
-                          }
-                        });
-                  
-                        modal.addEventListener('click', (event) => {
-                          if (event.target === modal) { // .modal 영역을 클릭했다면
-                            modal.classList.toggle('show'); // 'show'를 다시 토글(클래스를 제거하고 false를 반환함)
-                  
-                            if (!modal.classList.contains('show')) { // modal의 클래스에 'show'가 존재하지 않는다면
-                              body.style.overflow = 'auto'; // body에서 스크롤이 가능하도록 해라.
-                            }
-                          }
-                        });
-                    </script> -->
-
 					<div class="select-box">
 						<label for="place" class="input-field-txt">장소</label>
 						<input type="text" class="input-field" name="place" id="place" v-model="stuff.place">
@@ -202,6 +148,10 @@
 </template>
 
 <script>
+import dayjs from 'dayjs';
+import 'dayjs/locale/ko'
+
+
 export default {
 	data() {
 		return {
@@ -279,31 +229,44 @@ export default {
 			if (!this.stuff.title) {
 				this.valiError = "제목을 입력하세요.";
 				this.openModal = true;
+				return;
 			} else if (!this.isValidTitle(this.stuff.title)) {
 				this.valiError = "제목을 20자 이하로 입력해주세요.";
 				this.openModal = true;
+				return;
 			}
-
+			// 날짜 체크 (현재 시점 이전 선택 불가)
+			if (!this.isValidDeadline()) {
+				this.valiError = "마감시간을 확인하세요";
+				this.openModal = true;
+				return;
+			}
 			// 가격 체크
 			if (!this.stuff.price) {
 				this.valiError = "가격을 입력하세요.";
 				this.openModal = true;
+				return;
 			} else if (!this.isValidPrice(this.stuff.price.length)) {
 				this.openModal = true;
+				return;
 			}
 			// 장소, 카테고리, 날짜, 내용 체크
 			if (!this.stuff.place) {
 				this.valiError = "장소를 입력하세요.";
 				this.openModal = true;
+				return;
 			} else if (!this.stuff.categoryId) {
 				this.valiError = "카테고리를 선택하세요.";
 				this.openModal = true;
+				return;
 			} else if (!this.stuff.deadline) {
 				this.valiError = "날짜를 입력하세요.";
 				this.openModal = true;
+				return;
 			} else if (!this.stuff.content) {
 				this.valiError = "내용을 입력하세요.";
 				this.openModal = true;
+				return;
 			}
 
 			if (!this.valiError) {
@@ -354,6 +317,13 @@ export default {
 			}
 			// 모든 검증을 통과한 경우
 			return true;
+		},
+		isValidDeadline() {
+			const deadlineObj = new dayjs(this.stuff.deadline)
+			if(deadlineObj.diff(dayjs(), 'minute') <= 0)
+				return false;
+			else
+				return true;
 		},
 		toggleModal() {
 			this.openModal = !this.openModal;
