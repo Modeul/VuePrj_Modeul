@@ -3,7 +3,7 @@ import mutations from "./mutations";
 
 const store  = createStore({
     state:{
-        loadingStatus: false,
+        loadingstatus: false,
     },
     mutations
 })
