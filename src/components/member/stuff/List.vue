@@ -20,7 +20,7 @@ export default {
 			this.page=1;
 			this.categoryId = e.target.value;
 			console.log(this.categoryId);
-			fetch(`http://localhost:8080/member/stuffs?p=${this.page}&c=${this.categoryId}`)
+			fetch(`http://${this.$store.state.host}/member/stuffs?p=${this.page}&c=${this.categoryId}`)
 				.then(response => response.json())
 				.then(dataList => {
 					this.list = this.formatDateList(dataList.list);
@@ -35,7 +35,7 @@ export default {
 			// setTimeout(() => { this.$store.commit('LOADING_STATUS', false); }, 400); //settimout은 지워도 됨
 
 			this.page++;
-			await fetch(`http://localhost:8080/member/stuffs?p=${this.page}&c=${this.categoryId}`)
+			await fetch(`http://${this.$store.state.host}/member/stuffs?p=${this.page}&c=${this.categoryId}`)
 				.then(response => response.json())
 				.then(dataList => {
 					this.list = this.formatDateList(dataList.list);

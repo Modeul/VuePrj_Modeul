@@ -44,7 +44,7 @@ export default {
 				redirect: 'follow'
 			};
 
-			fetch("http://localhost:8080/member/stuffs/categories", requestOptions)
+			fetch(`http://${this.$store.state.host}/member/stuffs/categories`, requestOptions)
 				.then(response => response.json())
 				.then(categoryList => {
 					console.log(categoryList);
@@ -62,7 +62,7 @@ export default {
 				redirect: 'follow'
 			};
 
-			await fetch("http://localhost:8080/member/stuffs/upload", requestOptions)
+			await fetch(`http://${this.$store.state.host}/member/stuffs/upload`, requestOptions)
 				.then(response => response.text())
 				.then(result => console.log(result))
 				.catch(error => console.log('error', error));
@@ -128,7 +128,7 @@ export default {
 					redirect: 'follow'
 				};
 
-				await fetch(`http://localhost:8080/member/stuffs/update/${this.$route.params.id}`, requestOptions)
+				await fetch(`http://${this.$store.state.host}/member/stuffs/update/${this.$route.params.id}`, requestOptions)
 					.then(response => response.text())
 					.then(result => console.log(result))
 					.catch(error => console.log('error', error));
@@ -147,7 +147,7 @@ export default {
 		},
 
 		load() {
-			fetch(`http://localhost:8080/member/stuffs/${this.$route.params.id}`)
+			fetch(`http://${this.$store.state.host}/member/stuffs/${this.$route.params.id}`)
 				.then(response => response.json())
 				.then(stuffView => {
 					this.stuffView = stuffView;

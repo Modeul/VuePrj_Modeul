@@ -57,6 +57,7 @@ const router = createRouter({
     // router 기록!
     history: createWebHashHistory(),
     routes // short for `routes: routes`
+    // mode: "history"
 })
 
 

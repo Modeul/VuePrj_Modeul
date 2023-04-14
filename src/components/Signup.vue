@@ -293,7 +293,7 @@ export default {
           body: raw,
           redirect: "follow",
         };
-        fetch("http://localhost:8080/members", requestOptions)
+        fetch(`http://${this.$store.state.host}/members`, requestOptions)
           .then((response) => response.text())
           .then((result) => console.log(result))
           .catch((error) => console.log("error", error));
@@ -365,7 +365,7 @@ export default {
         redirect: "follow",
       };
       fetch(
-        `http://localhost:8080/members/mailConfirm?email=${this.member.email}`,
+        `http://${this.$store.state.host}/members/mailConfirm?email=${this.member.email}`,
         requestOptions
       )
         .then((response) => response.text())
@@ -396,7 +396,7 @@ export default {
       this.uidbtn="";
 
       await fetch(
-        `http://localhost:8080/members/checkUid?uid=${this.member.uid}`
+        `http://${this.$store.state.host}/members/checkUid?uid=${this.member.uid}`
       )
         .then((response) => response.text())
         .then((result) => {
@@ -419,7 +419,7 @@ export default {
       this.nicknameDupl = "";
       this.nicknameError = "";
       fetch(
-        `http://localhost:8080/members/checkNickname?nickname=${this.member.nickname}`
+        `http://${this.$store.state.host}/members/checkNickname?nickname=${this.member.nickname}`
       )
         .then((response) => response.text())
         .then((result) => {
@@ -440,7 +440,7 @@ export default {
       this.emailDupl = "";
       this.emailError = "";
       fetch(
-        `http://localhost:8080/members/checkEmail?email=${this.member.email}`
+        `http://${this.$store.state.host}/members/checkEmail?email=${this.member.email}`
       )
         .then((response) => response.text())
         .then((result) => {

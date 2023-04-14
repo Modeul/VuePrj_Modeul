@@ -51,7 +51,7 @@ Vue
 				  redirect: 'follow'
 				};
 				
-				fetch("http://localhost:8080/member/stuffs", requestOptions)
+				fetch("http://${this.$store.state.host}/member/stuffs", requestOptions)
 				  .then(response => response.json())
 				  .then(list => {
 						this.list = list;
@@ -66,7 +66,7 @@ Vue
 				  redirect: 'follow'
 				};
 				
-				fetch("http://localhost:8080/member/stuffs/categories", requestOptions)
+				fetch("http://${this.$store.state.host}/member/stuffs/categories", requestOptions)
 				  .then(response => response.json())
 				  .then(categoryList => {
 						this.categoryList = categoryList

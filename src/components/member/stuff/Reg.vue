@@ -211,7 +211,7 @@ export default {
 				redirect: 'follow'
 			};
 
-			fetch("http://localhost:8080/member/stuff/categories", requestOptions)
+			fetch(`http://${this.$store.state.host}/member/stuff/categories`, requestOptions)
 				.then(response => response.json())
 				.then(categoryList => {
 					this.categoryList = categoryList;
@@ -278,12 +278,16 @@ export default {
 					redirect: 'follow'
 				};
 
-				await fetch("http://localhost:8080/member/stuffs/upload", requestOptions)
+				this.$store.commit('LOADING_STATUS', true); // 해당 함수 true/false 로 어디서나 추가 가능
+
+				await fetch(`http://${this.$store.state.host}/member/stuffs/upload`, requestOptions)
 					.then(response => response.text())
 					.then(result => console.log(result))
 					.catch(error => console.log('error', error));
 
-				this.$router.push('/member/stuff/list')
+					setTimeout(() => {
+						this.$router.push('/member/stuff/list')
+					}, 500);
 			}
 		},
 

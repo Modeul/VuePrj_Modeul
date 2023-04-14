@@ -22,7 +22,7 @@ export default {
             this.query = e.target.value;
 	
 			console.log(this.query);
-			fetch(`http://localhost:8080/member/stuffs?p=${this.page}&q=${this.query}`)
+			fetch(`http://${this.$store.state.host}/member/stuffs?p=${this.page}&q=${this.query}`)
 				.then(response => response.json())
 				.then(dataList => {
 					this.list = this.formatDateList(dataList.queryList);
@@ -31,7 +31,7 @@ export default {
         },
 		addListHandler() {
 			this.page++;
-			fetch(`http://localhost:8080/member/stuffs?q=${this.query}&p=${this.page}&c=${this.categoryId}`)
+			fetch(`http://${this.$store.state.host}/member/stuffs?q=${this.query}&p=${this.page}&c=${this.categoryId}`)
 				.then(response => response.json())
 				.then(dataList => {
 					this.list = this.formatDateList(dataList.queryList);
@@ -121,9 +121,9 @@ export default {
 						<div class="d-gr li-gr m-t-13px list-cl">
 							<div class="li-pic b-rad-1">
 								<img v-if="stuff.imageName != null" class="listview-image" :src="'/images/member/stuff/' + stuff.imageName" alt="img">
-								<img v-else-if="stuff.categoryId == '1'" class="listview-image" src="/images/member/stuff/category1.png" alt="img">
-								<img v-else-if="stuff.categoryId == '2'" class="listview-image" src="/images/member/stuff/category2.png" alt="img">
-								<img v-else-if="stuff.categoryId == '3'" class="listview-image" src="/images/member/stuff/category3.png" alt="img">
+								<img v-else-if="stuff.categoryId == '1'" class="listview-image" src="/images/member/stuff/category1.svg" alt="img">
+								<img v-else-if="stuff.categoryId == '2'" class="listview-image" src="/images/member/stuff/category2.svg" alt="img">
+								<img v-else-if="stuff.categoryId == '3'" class="listview-image" src="/images/member/stuff/category3.svg" alt="img">
 								<img v-else class="listview-image" src="/images/member/stuff/member.png" alt="img">
 							</div>
 							<div class="li-categ-place">

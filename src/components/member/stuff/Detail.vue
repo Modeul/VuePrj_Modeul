@@ -42,7 +42,7 @@ export default {
 		};
 		this.$router.push("/member/stuff/list");
 
-		fetch(`http://localhost:8080/member/stuffs/${this.$route.params.id}`, requestOptions)
+		fetch(`http://${this.$store.state.host}/member/stuffs/${this.$route.params.id}`, requestOptions)
   			.then(response => response.text())
   			.then(result => console.log(result))
   			.catch(error => console.log('error', error));
@@ -52,7 +52,7 @@ export default {
 
 	},
 	mounted() {
-		fetch(`http://localhost:8080/member/stuffs/${this.$route.params.id}`)
+		fetch(`http://${this.$store.state.host}/member/stuffs/${this.$route.params.id}`)
 			.then((response) => response.json())
 			.then((data) => {
 				this.stuff = data.stuff;
